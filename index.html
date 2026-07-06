@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EstatCon – Consultoria Estatística UNICAMP</title>
+  <meta name="description" content="Serviço de consultoria estatística da UNICAMP. Análise de dados, modelos preditivos e IA para pesquisadores, empresas e organizações." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- SKIP LINK -->
+  <a href="#main-content" class="skip-link">Pular para o conteúdo</a>
+
+  <!-- NAV -->
+  <header class="nav-wrap" id="top">
+    <nav class="nav container">
+      <a href="#top" class="nav-logo" aria-label="EstatCon – início">
+        <span class="logo-mark" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <rect width="28" height="28" rx="6" fill="url(#lg)"/>
+            <defs><linearGradient id="lg" x1="0" y1="0" x2="28" y2="28"><stop stop-color="#3B82F6"/><stop offset="1" stop-color="#06B6D4"/></linearGradient></defs>
+            <path d="M6 20l5-7 4 4 4-6 3 4" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="logo-text"><span class="logo-e">Estat</span><span class="logo-c">Con</span></span>
+      </a>
+      <button class="nav-toggle" aria-label="Abrir menu de navegação" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" role="list">
+        <li><a href="#sobre">Sobre</a></li>
+        <li><a href="#servicos">Serviços</a></li>
+        <li><a href="#como-funciona">Processo</a></li>
+        <li><a href="#areas">Áreas</a></li>
+        <li><a href="#equipe">Equipe</a></li>
+        <li><a href="projetos.html">Projetos</a></li>
+        <li><a href="#faq">FAQ</a></li>
+        <li><a href="#contato" class="nav-cta">Solicitar Consultoria</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main id="main-content">
+
+    <!-- INSCRIPTION BANNER — toggle via INSCRICOES_ABERTAS em main.js -->
+    <div class="inscricao-banner" id="inscricao-banner" role="status" aria-label="Período de inscrições aberto" hidden>
+      <div class="container inscricao-inner">
+        <div class="inscricao-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+        </div>
+        <div class="inscricao-text">
+          <strong>Inscrições para o 2º Semestre de 2026</strong>
+          <span>Período aberto - envie sua proposta até <strong>25/07/2026</strong>.</span>
+        </div>
+        <a href="#contato" class="btn btn-sm inscricao-cta">Solicitar Agora</a>
+        <button class="inscricao-close" id="inscricao-close" aria-label="Fechar aviso">
+          <svg viewBox="0 0 20 20" fill="currentColor" aria-hidden="true"><path fill-rule="evenodd" d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         HERO
+    ============================================================ -->
+    <section class="hero" aria-label="Apresentação do EstatCon">
+
+      <!-- Animated neural network -->
+      <div class="hero-network" aria-hidden="true">
+        <svg class="neural-svg" viewBox="0 0 900 560" preserveAspectRatio="xMidYMid slice">
+          <defs>
+            <filter id="glow-blue">
+              <feGaussianBlur stdDeviation="3" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+            <filter id="glow-cyan">
+              <feGaussianBlur stdDeviation="4" result="blur"/>
+              <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+          <!-- Edges -->
+          <g class="net-edges" stroke-width="1">
+            <line x1="90" y1="110" x2="240" y2="70" class="edge e1"/>
+            <line x1="240" y1="70" x2="400" y2="90" class="edge e2"/>
+            <line x1="400" y1="90" x2="560" y2="60" class="edge e3"/>
+            <line x1="560" y1="60" x2="720" y2="100" class="edge e4"/>
+            <line x1="720" y1="100" x2="860" y2="75" class="edge e5"/>
+            <line x1="90" y1="110" x2="160" y2="230" class="edge e6"/>
+            <line x1="160" y1="230" x2="310" y2="200" class="edge e7"/>
+            <line x1="310" y1="200" x2="460" y2="220" class="edge e8"/>
+            <line x1="460" y1="220" x2="640" y2="185" class="edge e9"/>
+            <line x1="640" y1="185" x2="800" y2="215" class="edge e10"/>
+            <line x1="240" y1="70" x2="310" y2="200" class="edge e11"/>
+            <line x1="400" y1="90" x2="460" y2="220" class="edge e12"/>
+            <line x1="560" y1="60" x2="640" y2="185" class="edge e13"/>
+            <line x1="720" y1="100" x2="800" y2="215" class="edge e14"/>
+            <line x1="160" y1="230" x2="200" y2="360" class="edge e15"/>
+            <line x1="200" y1="360" x2="360" y2="330" class="edge e16"/>
+            <line x1="360" y1="330" x2="510" y2="355" class="edge e17"/>
+            <line x1="510" y1="355" x2="680" y2="320" class="edge e18"/>
+            <line x1="680" y1="320" x2="830" y2="350" class="edge e19"/>
+            <line x1="310" y1="200" x2="360" y2="330" class="edge e20"/>
+            <line x1="460" y1="220" x2="510" y2="355" class="edge e21"/>
+            <line x1="640" y1="185" x2="680" y2="320" class="edge e22"/>
+            <line x1="200" y1="360" x2="260" y2="470" class="edge e23"/>
+            <line x1="260" y1="470" x2="430" y2="450" class="edge e24"/>
+            <line x1="430" y1="450" x2="600" y2="480" class="edge e25"/>
+            <line x1="360" y1="330" x2="430" y2="450" class="edge e26"/>
+            <line x1="510" y1="355" x2="600" y2="480" class="edge e27"/>
+          </g>
+          <!-- Nodes -->
+          <g class="net-nodes">
+            <circle cx="90"  cy="110" r="5"  class="node n-blue  d1"/>
+            <circle cx="240" cy="70"  r="7"  class="node n-cyan  d2"/>
+            <circle cx="400" cy="90"  r="5"  class="node n-blue  d3"/>
+            <circle cx="560" cy="60"  r="8"  class="node n-purple d4"/>
+            <circle cx="720" cy="100" r="5"  class="node n-blue  d5"/>
+            <circle cx="860" cy="75"  r="4"  class="node n-muted d6"/>
+            <circle cx="160" cy="230" r="6"  class="node n-cyan  d1"/>
+            <circle cx="310" cy="200" r="9"  class="node n-blue  d3"/>
+            <circle cx="460" cy="220" r="5"  class="node n-cyan  d2"/>
+            <circle cx="640" cy="185" r="7"  class="node n-purple d5"/>
+            <circle cx="800" cy="215" r="4"  class="node n-muted d4"/>
+            <circle cx="200" cy="360" r="5"  class="node n-blue  d2"/>
+            <circle cx="360" cy="330" r="8"  class="node n-cyan  d1"/>
+            <circle cx="510" cy="355" r="6"  class="node n-blue  d4"/>
+            <circle cx="680" cy="320" r="9"  class="node n-purple d3"/>
+            <circle cx="830" cy="350" r="4"  class="node n-muted d5"/>
+            <circle cx="260" cy="470" r="5"  class="node n-cyan  d3"/>
+            <circle cx="430" cy="450" r="6"  class="node n-blue  d1"/>
+            <circle cx="600" cy="480" r="4"  class="node n-muted d2"/>
+          </g>
+          <!-- Scan line -->
+          <line class="scan-line" x1="0" y1="0" x2="900" y2="0"/>
+        </svg>
+      </div>
+
+      <!-- Content -->
+      <div class="container hero-layout">
+        <div class="hero-content">
+          <div class="hero-badge" aria-label="IMECC · UNICAMP">
+            <span class="badge-dot" aria-hidden="true"></span>
+            <span class="badge-mono">IMECC · UNICAMP · Estatística</span>
+          </div>
+
+          <h1>
+            Transformamos dados em<br>
+            <span class="gradient-text">informações</span>
+          </h1>
+
+          <p class="hero-lead">
+            Consultoria estatística de alto nível: análise de dados, modelagem preditiva e aprendizado de máquina para pesquisadores, empresas e organizações, conduzidos por alunos do bacharelado em Estatística supervisionados por docentes do Departamento de Estatística do IMECC/Unicamp.
+          </p>
+
+          <div class="hero-actions">
+            <a href="#contato" class="btn btn-primary">
+              Solicitar Consultoria
+              <svg aria-hidden="true" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+            </a>
+            <a href="projetos.html" class="btn btn-ghost">Ver Projetos</a>
+          </div>
+
+          <div class="hero-trust" aria-label="Diferenciais do EstatCon">
+            <span>
+              <svg aria-hidden="true" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+              Serviço inteiramente gratuito
+            </span>
+            <span class="trust-sep" aria-hidden="true"></span>
+            <span>
+              <svg aria-hidden="true" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+              Supervisão por professores do IMECC
+            </span>
+            <span class="trust-sep" aria-hidden="true"></span>
+            <span>
+              <svg aria-hidden="true" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+              Relatório técnico incluso
+            </span>
+          </div>
+
+          <div class="hero-stats" aria-label="Estatísticas">
+            <div class="hero-stat">
+              <span class="hero-stat-n" data-count="200">0</span><span class="hero-stat-plus">+</span>
+              <span class="hero-stat-l">Projetos concluídos</span>
+            </div>
+            <div class="hero-stat-div" aria-hidden="true"></div>
+            <div class="hero-stat">
+              <span class="hero-stat-n" data-count="2018">0</span>
+              <span class="hero-stat-l">Em atividade desde</span>
+            </div>
+            <div class="hero-stat-div" aria-hidden="true"></div>
+            <div class="hero-stat">
+              <span class="hero-stat-n">20+</span>
+              <span class="hero-stat-l">Unidades da UNICAMP</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Hero image -->
+        <div class="hero-img-wrap">
+          <img
+            src="imagens/sobre.png"
+            alt="Interior do IMECC/UNICAMP"
+            class="hero-img"
+            width="580" height="440"
+            loading="eager"
+          />
+        </div>
+      </div>
+
+      <!-- Scroll cue -->
+      <div class="scroll-cue" aria-hidden="true">
+        <div class="scroll-line"></div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         SOBRE
+    ============================================================ -->
+    <section class="section bg-white" id="sobre">
+      <div class="container">
+        <div class="about-split">
+          <div class="about-text reveal">
+            <span class="section-tag">Sobre o EstatCon</span>
+            <h2>Rigor estatístico a serviço de quem decide com dados</h2>
+            <p>O EstatCon é o serviço de consultoria estatística do Departamento de Estatística da UNICAMP (IMECC). Funciona através de alunos matriculados nas disciplinas <span class="mono-inline">ME712</span> e <span class="mono-inline">ME812</span> (Consultoria Estatística I e II), sob supervisão direta de professores do departamento.</p>
+            <p>Atendemos pesquisadores acadêmicos, órgãos públicos e empresas privadas que precisam transformar dados em respostas concretas, com rigor metodológico e supervisão especializada.</p>
+            <ul class="check-list" role="list">
+              <li>
+                <svg aria-hidden="true" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+                Supervisão por professores do IMECC/UNICAMP
+              </li>
+              <li>
+                <svg aria-hidden="true" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+                Serviço inteiramente gratuito para todos os solicitantes
+              </li>
+              <li>
+                <svg aria-hidden="true" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+                Relatório técnico ao final do semestre letivo
+              </li>
+              <li>
+                <svg aria-hidden="true" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+                Atendimento presencial e virtual
+              </li>
+            </ul>
+          </div>
+          <div class="about-visual reveal">
+            <!-- Data pipeline illustration -->
+            <div class="pipeline-card">
+              <div class="pipeline-step">
+                <div class="pipe-icon blue"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 12h18M3 6h18M3 18h18"/></svg></div>
+                <div class="pipe-text">
+                  <strong>Coleta e Limpeza</strong>
+                  <span>Estruturação dos dados brutos</span>
+                </div>
+              </div>
+              <div class="pipe-arrow" aria-hidden="true">↓</div>
+              <div class="pipeline-step">
+                <div class="pipe-icon cyan"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg></div>
+                <div class="pipe-text">
+                  <strong>Análise Exploratória</strong>
+                  <span>Padrões, distribuições, correlações</span>
+                </div>
+              </div>
+              <div class="pipe-arrow" aria-hidden="true">↓</div>
+              <div class="pipeline-step">
+                <div class="pipe-icon purple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17H3a2 2 0 01-2-2V5a2 2 0 012-2h16a2 2 0 012 2v10a2 2 0 01-2 2h-2"/></svg></div>
+                <div class="pipe-text">
+                  <strong>Modelagem Estatística</strong>
+                  <span>Modelos, testes, predições</span>
+                </div>
+              </div>
+              <div class="pipe-arrow" aria-hidden="true">↓</div>
+              <div class="pipeline-step">
+                <div class="pipe-icon green"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg></div>
+                <div class="pipe-text">
+                  <strong>Relatório e Interpretação</strong>
+                  <span>Resultados claros e acionáveis para o seu projeto</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         POR QUE ESTATCON?
+    ============================================================ -->
+    <section class="section bg-gray" id="vantagens">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-tag">Por que EstatCon?</span>
+          <h2>Rigor acadêmico com <span class="gradient-text">resultado prático</span></h2>
+          <p class="section-lead">Três razões para confiar seu projeto ao EstatCon.</p>
+        </div>
+        <div class="vantagens-grid reveal">
+          <div class="vantagem-card">
+            <div class="vantagem-icon blue" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M12 14l9-5-9-5-9 5 9 5z"/><path d="M12 14l6.16-3.422A12.083 12.083 0 0112 21a12.083 12.083 0 01-6.16-10.422L12 14z"/></svg>
+            </div>
+            <h3>Expertise Supervisionada</h3>
+            <p>Cada projeto é conduzido por alunos sob orientação direta de professores do Departamento de Estatística do IMECC/UNICAMP - garantindo rigor metodológico em cada análise.</p>
+          </div>
+          <div class="vantagem-card">
+            <div class="vantagem-icon green" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M7 7h10M7 12h10M7 17h6"/><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+            </div>
+            <h3>Serviço Gratuito</h3>
+            <p>Qualquer solicitante - pesquisador, aluno, empresa ou órgão público - tem acesso à consultoria estatística especializada sem nenhum custo.</p>
+          </div>
+          <div class="vantagem-card">
+            <div class="vantagem-icon cyan" aria-hidden="true">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"/></svg>
+            </div>
+            <h3>Relatório Técnico Incluso</h3>
+            <p>Ao final do projeto, você recebe documentação completa com metodologia, resultados e interpretações - pronta para publicação, defesa ou tomada de decisão.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Stats bar -->
+    <div class="stats-bar" aria-label="Números do EstatCon">
+      <div class="container stats-bar-inner">
+        <div class="sbar-item">
+          <span class="sbar-n gradient-text" data-count="200">0</span><span class="sbar-pct gradient-text">+</span>
+          <span class="sbar-l">Projetos concluídos</span>
+        </div>
+        <div class="sbar-div" aria-hidden="true"></div>
+        <div class="sbar-item">
+          <span class="sbar-n gradient-text" data-count="7">0</span>
+          <span class="sbar-l">Anos de atividade</span>
+        </div>
+        <div class="sbar-div" aria-hidden="true"></div>
+        <div class="sbar-item">
+          <span class="sbar-n gradient-text" data-count="20">0</span><span class="sbar-pct gradient-text">+</span>
+          <span class="sbar-l">Unidades da UNICAMP</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         SERVIÇOS — bento grid dark
+    ============================================================ -->
+    <section class="section bg-dark" id="servicos">
+      <div class="container">
+        <div class="section-header center-dark reveal">
+          <span class="section-tag-dark">O que oferecemos</span>
+          <h2 class="text-white">Métodos e <span class="gradient-text">Técnicas</span></h2>
+          <p class="section-lead-dark">Da estatística clássica ao aprendizado de máquina: cobrimos todas as etapas da análise quantitativa.</p>
+        </div>
+        <div class="bento-grid reveal">
+          <!-- Featured -->
+          <div class="bento-card bento-featured glass-card">
+            <div class="bento-icon-lg" aria-hidden="true">
+              <svg viewBox="0 0 48 48" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M6 42L16 28l8 8 10-16 8 10"/><circle cx="6" cy="42" r="2" fill="#06B6D4"/><circle cx="16" cy="28" r="2" fill="#06B6D4"/><circle cx="24" cy="36" r="2" fill="#3B82F6"/><circle cx="34" cy="20" r="2" fill="#A78BFA"/><circle cx="42" cy="30" r="2" fill="#A78BFA"/></svg>
+            </div>
+            <h3>Modelagem Estatística</h3>
+            <p>Regressão linear e logística, modelos lineares generalizados (GLM), modelos mistos, modelos longitudinais e hierárquicos para estruturas de dados complexas.</p>
+            <div class="bento-tags">
+              <span>GLM</span><span>Modelos Mistos</span><span>Longitudinal</span>
+            </div>
+          </div>
+          <!-- 2: Descritiva -->
+          <div class="bento-card glass-card">
+            <div class="bento-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="18" width="5" height="10" rx="2"/><rect x="11" y="12" width="5" height="16" rx="2"/><rect x="19" y="6" width="5" height="22" rx="2"/></svg>
+            </div>
+            <h3>Análise Descritiva</h3>
+            <p>Exploração, sumarização e visualização de dados. Estatísticas descritivas e diagnóstico visual completo.</p>
+          </div>
+          <!-- 3: ML -->
+          <div class="bento-card glass-card">
+            <div class="bento-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="8" r="3"/><circle cx="24" cy="8" r="3"/><circle cx="8" cy="24" r="3"/><circle cx="24" cy="24" r="3"/><circle cx="16" cy="16" r="4"/><path d="M11 8h2M19 8h2M8 11v2M8 19v2M11 24h2M19 24h2M24 11v2M24 19v2M13 13l2.5 2.5M18.5 13l-2.5 2.5M13 19l2.5-2.5M18.5 19l-2.5-2.5"/></svg>
+            </div>
+            <h3>Aprendizado de Máquina</h3>
+            <p>Modelos preditivos supervisionados e não-supervisionados, validação cruzada e seleção de variáveis.</p>
+          </div>
+          <!-- 4: Séries temporais -->
+          <div class="bento-card glass-card">
+            <div class="bento-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 24c0 0 3-14 6-14s3 12 6 12 3-18 6-18 3 10 6 10"/></svg>
+            </div>
+            <h3>Séries Temporais</h3>
+            <p>ARIMA, decomposição sazonal, análise espectral e previsão de dados ao longo do tempo.</p>
+          </div>
+          <!-- 5: ANOVA -->
+          <div class="bento-card glass-card">
+            <div class="bento-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="16" cy="16" r="4"/><circle cx="6" cy="16" r="4"/><circle cx="26" cy="16" r="4"/><path d="M10 16h2M18 16h2"/></svg>
+            </div>
+            <h3>Análise de Variância</h3>
+            <p>ANOVA, MANOVA, delineamentos experimentais e comparações múltiplas para estudos com grupos.</p>
+          </div>
+          <!-- 6: Clustering -->
+          <div class="bento-card glass-card">
+            <div class="bento-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="10" cy="10" r="3"/><circle cx="22" cy="10" r="3"/><circle cx="10" cy="22" r="3"/><circle cx="22" cy="22" r="3"/><circle cx="16" cy="16" r="3"/></svg>
+            </div>
+            <h3>Classificação e Clustering</h3>
+            <p>PCA, análise discriminante, k-means e métodos de redução de dimensionalidade para descoberta de padrões.</p>
+          </div>
+          <!-- 7: Survival -->
+          <div class="bento-card bento-wide glass-card">
+            <div class="bento-icon" aria-hidden="true">
+              <svg viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 24l5-5 4 4 5-8 4 3 4-6"/><path d="M4 4v20h24" stroke-width="1.2" opacity=".5"/></svg>
+            </div>
+            <h3>Análise de Sobrevivência · Dados Longitudinais</h3>
+            <p>Kaplan-Meier, modelo de Cox, modelos de efeitos mistos e análise de dados repetidos ao longo do tempo.</p>
+            <div class="bento-tags">
+              <span>Kaplan-Meier</span><span>Cox</span><span>Dados Repetidos</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Mid CTA -->
+    <div class="mid-cta-banner">
+      <div class="container mid-cta-inner">
+        <p>Precisa transformar seus dados em resultados concretos? O EstatCon oferece consultoria estatística especializada inteiramente gratuita.</p>
+        <a href="#contato" class="btn btn-primary">
+          Solicitar Consultoria
+          <svg aria-hidden="true" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+        </a>
+      </div>
+    </div>
+
+    <!-- ============================================================
+         COMO FUNCIONA
+    ============================================================ -->
+    <section class="section bg-gray" id="como-funciona">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-tag">Processo</span>
+          <h2>Como Funciona</h2>
+          <p class="section-lead">Quatro etapas simples do pedido ao relatório final.</p>
+        </div>
+        <div class="prereq-alert reveal" role="note">
+          <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v4m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+          <div>
+            <p class="prereq-alert-title">Antes de inscrever-se, verifique os pré-requisitos:</p>
+            <ul>
+              <li>Os dados da pesquisa devem estar <strong>completamente coletados</strong> antes da submissão do projeto.</li>
+              <li>Os dados devem ser disponibilizados à equipe consultora no <strong>início do semestre letivo</strong>.</li>
+              <li>A consultoria se desenvolve ao longo de <strong>todo o semestre letivo</strong>, com entrega do relatório técnico e apresentação dos resultados ao <strong>final do semestre</strong>.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="process-grid reveal">
+          <div class="process-step">
+            <div class="process-num" aria-hidden="true"><span>01</span></div>
+            <div class="process-body">
+              <h3>Inscrição</h3>
+              <p>Clique no botão "Solicitar Consultoria" e preencha o formulário online descrevendo seu projeto e as perguntas de pesquisa. Os dados devem estar completamente coletados antes da inscrição.</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="process-num" aria-hidden="true"><span>02</span></div>
+            <div class="process-body">
+              <h3>Seleção e Alocação</h3>
+              <p>Os projetos são avaliados pela coordenação. Cada projeto aprovado será alocado a um grupo de alunos, que atuará como consultores, e será supervisionado por um docente do departamento.</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="process-num" aria-hidden="true"><span>03</span></div>
+            <div class="process-body">
+              <h3>Análise e Reuniões</h3>
+              <p>Realize pelo menos duas reuniões obrigatórias ao longo do semestre. As análises são conduzidas com orientação docente e feedbacks contínuos.</p>
+            </div>
+          </div>
+          <div class="process-step">
+            <div class="process-num" aria-hidden="true"><span>04</span></div>
+            <div class="process-body">
+              <h3>Relatório e Apresentação Final</h3>
+              <p>Ao final do semestre letivo, você recebe um relatório técnico completo com resultados, interpretações e recomendações estatísticas aplicadas ao seu projeto.</p>
+            </div>
+          </div>
+        </div>
+        <div class="process-cta reveal">
+          <div class="process-cta-text">
+            <p>As inscrições acontecem em junho/julho.</p>
+            <p>O prazo para submissões para o próximo semestre letivo segue até 25/07/2026.</p>
+          </div>
+          <a href="#contato" class="btn btn-primary">Solicitar Consultoria</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         ÁREAS DE APLICAÇÃO
+    ============================================================ -->
+    <section class="section bg-white" id="areas">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-tag">Áreas de Aplicação</span>
+          <h2>Diversidade de Projetos</h2>
+          <p class="section-lead">Já atuamos em projetos de pesquisa acadêmica, iniciativa privada e organizações públicas das mais diversas áreas.</p>
+        </div>
+        <div class="areas-cloud reveal">
+          <span class="area-chip chip-blue">Ciências da Saúde</span>
+          <span class="area-chip chip-cyan">Medicina e Epidemiologia</span>
+          <span class="area-chip chip-purple">Ciências Agrárias</span>
+          <span class="area-chip chip-blue">Ciências Ambientais</span>
+          <span class="area-chip chip-cyan">Ciências Sociais</span>
+          <span class="area-chip chip-purple">Engenharia</span>
+          <span class="area-chip chip-blue">Ciências Biológicas</span>
+          <span class="area-chip chip-cyan">Economia</span>
+          <span class="area-chip chip-purple">Psicologia</span>
+          <span class="area-chip chip-blue">Educação</span>
+          <span class="area-chip chip-cyan">Ciências da Terra</span>
+          <span class="area-chip chip-purple">Administração</span>
+        </div>
+
+        <div class="projects-showcase reveal">
+          <div class="showcase-header">
+            <h3>Projetos Recentes em Destaque</h3>
+            <a href="projetos.html" class="link-arrow">Ver histórico completo →</a>
+          </div>
+          <div class="showcase-grid">
+            <div class="showcase-card">
+              <span class="sc-area cyan">Medicina</span>
+              <p>Análise de marcadores de hemólise e metabolismo do ferro em pacientes pós-COVID-19 (FCM/UNICAMP)</p>
+            </div>
+            <div class="showcase-card">
+              <span class="sc-area blue">Agronomia</span>
+              <p>Mapeamento de territórios para bovinocultura de corte no Brasil Central (IG/UNICAMP)</p>
+            </div>
+            <div class="showcase-card">
+              <span class="sc-area purple">Ambiental</span>
+              <p>Análise de variáveis climáticas e restauração florestal em bacias hidrográficas (FT/UNICAMP)</p>
+            </div>
+            <div class="showcase-card">
+              <span class="sc-area cyan">Social</span>
+              <p>Análise hermenêutica da infodemiologia durante a pandemia de COVID-19 (UNESP)</p>
+            </div>
+            <div class="showcase-card">
+              <span class="sc-area blue">Economia</span>
+              <p>Financeirização, governança corporativa e remuneração de CEOs no Brasil (IE/UNICAMP)</p>
+            </div>
+            <div class="showcase-card">
+              <span class="sc-area purple">Biologia</span>
+              <p>Triagem de compostos neuroprotetores via análise de citotoxicidade celular (IB/UNICAMP)</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         EQUIPE
+    ============================================================ -->
+    <section class="section bg-dark" id="equipe">
+      <div class="container">
+        <div class="section-header center-dark reveal">
+          <span class="section-tag-dark">Coordenação 2026</span>
+          <h2 class="text-white">Nossa <span class="gradient-text">Equipe</span></h2>
+          <p class="section-lead-dark">Coordenado por professores do Departamento de Estatística do IMECC/UNICAMP.</p>
+        </div>
+        <div class="team-grid reveal">
+          <div class="team-card glass-card">
+            <div class="team-avatar blue">
+              <img src="imagens/tatiana-benaglia.jpeg" alt="Profa. Dra. Tatiana Benaglia" class="team-avatar-photo" style="object-position: center 20%;">
+            </div>
+            <h3>Profa. Dra. Tatiana Benaglia</h3>
+            <span class="team-role">Professora Coordenadora</span>
+            <span class="team-dept">Estatística · IMECC/UNICAMP</span>
+          </div>
+          <div class="team-card glass-card">
+            <div class="team-avatar cyan">
+              <img src="imagens/rafael-maia.jpeg" alt="Prof. Dr. Rafael Pimentel Maia" class="team-avatar-photo">
+            </div>
+            <h3>Prof. Dr. Rafael Pimentel Maia</h3>
+            <span class="team-role">Professor Coordenador</span>
+            <span class="team-dept">Estatística · IMECC/UNICAMP</span>
+          </div>
+          <div class="team-card glass-card">
+            <div class="team-avatar purple" aria-hidden="true">
+              <svg viewBox="0 0 56 56" fill="none"><circle cx="28" cy="22" r="10" fill="rgba(167,139,250,.25)"/><ellipse cx="28" cy="48" rx="16" ry="9" fill="rgba(167,139,250,.18)"/></svg>
+            </div>
+            <h3>Prof. Dr. Caio Lucidius N. Azevedo</h3>
+            <span class="team-role">Professor Coordenador</span>
+            <span class="team-dept">Estatística · IMECC/UNICAMP</span>
+          </div>
+        </div>
+        <div class="team-note glass-card reveal">
+          <svg aria-hidden="true" viewBox="0 0 20 20" fill="currentColor"><path d="M9 4.804A7.968 7.968 0 005.5 4c-1.255 0-2.443.29-3.5.804v10A7.969 7.969 0 015.5 14c1.669 0 3.218.51 4.5 1.385A7.962 7.962 0 0114.5 14c1.255 0 2.443.29 3.5.804v-10A7.968 7.968 0 0014.5 4c-1.255 0-2.443.29-3.5.804V12a1 1 0 11-2 0V4.804z"/></svg>
+          <p>Os consultores são alunos de graduação do bacharelado em Estatística regularmente matriculados nas disciplinas <span class="mono-inline">ME712</span> e <span class="mono-inline">ME812</span> (Consultoria Estatística I e II).</p>
+        </div>
+
+        <details class="prev-coords-details reveal">
+          <summary class="prev-coords-summary">
+            <span>Coordenações Anteriores</span>
+            <svg class="prev-coords-chevron" aria-hidden="true" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8l5 5 5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </summary>
+          <div class="prev-coords-body">
+            <div class="prev-year-block">
+              <span class="prev-year-label">2025</span>
+              <ul>
+                <li>Profa. Dra. Larissa A. Matos</li>
+                <li>Prof. Dr. Guilherme Ludwig</li>
+                <li>Prof. Dr. Victor Freguglia Souza</li>
+              </ul>
+            </div>
+            <div class="prev-year-block">
+              <span class="prev-year-label">2023–2024</span>
+              <ul>
+                <li>Profa. Dra. Mariana R. Motta</li>
+                <li>Profa. Dra. Samara Kiihl</li>
+                <li>Prof. Dr. Alex Rodrigo dos Santos Sousa</li>
+              </ul>
+            </div>
+            <div class="prev-year-block">
+              <span class="prev-year-label">2022</span>
+              <ul>
+                <li>Profa. Dra. Larissa A. Matos</li>
+                <li>Prof. Dr. Mauricio E. Zevallos Herencia</li>
+                <li>Prof. Dr. Rafael Pimentel Maia</li>
+              </ul>
+            </div>
+          </div>
+        </details>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         FAQ
+    ============================================================ -->
+    <section class="section bg-gray" id="faq">
+      <div class="container">
+        <div class="section-header reveal">
+          <span class="section-tag">Dúvidas Frequentes</span>
+          <h2>Perguntas <span class="gradient-text">Frequentes</span></h2>
+          <p class="section-lead">Tudo o que você precisa saber antes de solicitar uma consultoria.</p>
+        </div>
+        <div class="faq-list reveal">
+          <details class="faq-item">
+            <summary class="faq-summary">
+              <span>Quem pode solicitar uma consultoria?</span>
+              <svg class="faq-chevron" aria-hidden="true" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8l5 5 5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="faq-body">
+              <p>Pesquisadores, docentes, alunos de pós-graduação e graduação da UNICAMP. Instituições externas de ensino, empresas privadas e órgãos públicos também podem ser atendidos, mediante avaliação pela coordenação.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-summary">
+              <span>O serviço é realmente gratuito?</span>
+              <svg class="faq-chevron" aria-hidden="true" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8l5 5 5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="faq-body">
+              <p>Sim. O serviço de consultoria é inteiramente gratuito para todos os solicitantes - pesquisadores, alunos, empresas ou órgãos públicos.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-summary">
+              <span>Meu projeto precisa ter os dados já coletados?</span>
+              <svg class="faq-chevron" aria-hidden="true" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8l5 5 5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="faq-body">
+              <p>Sim. Os dados devem estar coletados e disponíveis para que a consultoria possa ser iniciada. Se ainda estiver na fase de planejamento, considere entrar em contato na próxima janela de inscrições, com os dados já em mãos.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-summary">
+              <span>Quanto tempo dura uma consultoria?</span>
+              <svg class="faq-chevron" aria-hidden="true" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8l5 5 5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="faq-body">
+              <p>Em geral, um semestre letivo. O projeto tem início após a alocação do consultor e termina com a entrega do relatório técnico e a apresentação final. As inscrições acontecem em junho/julho e dezembro/janeiro, para atividades de consultoria no semestre letivo seguinte.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-summary">
+              <span>Preciso ter conhecimento de estatística?</span>
+              <svg class="faq-chevron" aria-hidden="true" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8l5 5 5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="faq-body">
+              <p>Não. O consultor explicará cada etapa e a metodologia de forma acessível ao seu nível de conhecimento. O objetivo é que você compreenda e possa utilizar os resultados com segurança.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-summary">
+              <span>Como será feita a comunicação com o consultor?</span>
+              <svg class="faq-chevron" aria-hidden="true" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8l5 5 5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="faq-body">
+              <p>Por e-mail e reuniões presenciais ou virtuais. São obrigatórias ao menos duas reuniões ao longo do semestre, com acompanhamento contínuo pelo professor supervisor.</p>
+            </div>
+          </details>
+          <details class="faq-item">
+            <summary class="faq-summary">
+              <span>Recebo algum documento ao final?</span>
+              <svg class="faq-chevron" aria-hidden="true" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 8l5 5 5-5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </summary>
+            <div class="faq-body">
+              <p>Sim. Ao encerrar o projeto, você recebe um relatório técnico completo com metodologia, resultados, interpretações e recomendações - pronto para subsidiar publicações, defesas ou decisões gerenciais. Adicionalmente, os consultores farão uma apresentação dos resultados obtidos ao cliente.</p>
+            </div>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============================================================
+         CONTATO
+    ============================================================ -->
+    <section class="section bg-white" id="contato">
+      <div class="container">
+        <div class="contact-layout">
+          <!-- Info -->
+          <div class="contact-info reveal">
+            <span class="section-tag">Contato</span>
+            <h2>Solicite uma Consultoria</h2>
+            <p>Entre em contato para saber mais sobre o processo de inscrição ou tirar dúvidas sobre nossos serviços.</p>
+
+            <div class="prazo-badge" role="note">
+              <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+              <div>
+                <strong>2º Semestre de 2026</strong>
+                <span>Inscrições abertas até <strong>25/07/2026</strong></span>
+              </div>
+            </div>
+
+            <div class="gratuito-badge" role="note">
+              <svg aria-hidden="true" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"/></svg>
+              <div>
+                <strong>Serviço inteiramente gratuito</strong>
+                <span>Aberto a todos os solicitantes, sem nenhum custo.</span>
+              </div>
+            </div>
+
+            <ul class="contact-items" role="list">
+              <li>
+                <div class="ci-icon blue" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+                </div>
+                <div class="ci-text">
+                  <strong>E-mail</strong>
+                  <a href="mailto:estatcon@unicamp.br">estatcon@unicamp.br</a>
+                </div>
+              </li>
+              <li>
+                <div class="ci-icon cyan" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17.657 16.657L13.414 20.9a2 2 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+                </div>
+                <div class="ci-text">
+                  <strong>Endereço</strong>
+                  <span>Rua Sérgio Buarque de Holanda, 651<br>Cidade Universitária · Campinas/SP<br>CEP 13083-859</span>
+                </div>
+              </li>
+              <li>
+                <div class="ci-icon purple" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                </div>
+                <div class="ci-text">
+                  <strong>Inscrições</strong>
+                  <span>Abertas no início de cada semestre letivo. Acompanhe os prazos pelo site e e-mail.</span>
+                </div>
+              </li>
+            </ul>
+
+            <!-- Mini stats -->
+            <div class="contact-stats">
+              <div class="cs-item">
+                <span class="cs-n gradient-text">200+</span>
+                <span class="cs-l">Projetos concluídos</span>
+              </div>
+              <div class="cs-item">
+                <span class="cs-n gradient-text">7</span>
+                <span class="cs-l">Anos de atividade</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Visual + Forms -->
+          <div class="contact-visual reveal">
+            <div class="contact-photo-wrap">
+              <img
+                src="imagens/imecc-interior.jpg"
+                alt="Interior do IMECC/UNICAMP"
+                class="contact-photo"
+                width="600" height="450"
+                loading="lazy"
+                onerror="this.style.display='none';this.nextElementSibling.removeAttribute('hidden')"
+              />
+              <div class="contact-photo-placeholder" hidden aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg>
+                <span>IMECC/UNICAMP</span>
+              </div>
+              <div class="contact-photo-overlay">
+                <a
+                  href="PLACEHOLDER_GOOGLE_FORMS_URL"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  class="btn btn-primary"
+                  aria-label="Acessar formulário de inscrição no Google Forms (abre em nova aba)"
+                >
+                  Acessar Formulário de Inscrição
+                  <svg aria-hidden="true" viewBox="0 0 20 20" fill="currentColor"><path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd"/></svg>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="#top" class="nav-logo footer-logo" aria-label="EstatCon">
+          <span class="logo-mark" aria-hidden="true">
+            <svg width="24" height="24" viewBox="0 0 28 28" fill="none">
+              <rect width="28" height="28" rx="6" fill="url(#lf)"/>
+              <defs><linearGradient id="lf" x1="0" y1="0" x2="28" y2="28"><stop stop-color="#3B82F6"/><stop offset="1" stop-color="#06B6D4"/></linearGradient></defs>
+              <path d="M6 20l5-7 4 4 4-6 3 4" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </span>
+          <span class="logo-text"><span class="logo-e">Estat</span><span class="logo-c">Con</span></span>
+        </a>
+        <p>Consultoria Estatística · IMECC · UNICAMP<br>Campinas, SP · Brasil</p>
+        <a href="mailto:estatcon@unicamp.br" class="footer-email">estatcon@unicamp.br</a>
+      </div>
+      <nav class="footer-nav" aria-label="Navegação no rodapé">
+        <p class="footer-nav-title">Navegação</p>
+        <ul role="list">
+          <li><a href="#sobre">Sobre</a></li>
+          <li><a href="#servicos">Serviços</a></li>
+          <li><a href="#como-funciona">Como Funciona</a></li>
+          <li><a href="#areas">Áreas</a></li>
+          <li><a href="#equipe">Equipe</a></li>
+          <li><a href="projetos.html">Projetos</a></li>
+          <li><a href="#faq">FAQ</a></li>
+          <li><a href="#contato">Contato</a></li>
+        </ul>
+      </nav>
+      <div class="footer-inst">
+        <p class="footer-nav-title">Institucional</p>
+        <div class="inst-logos">
+          <span class="inst-badge">UNICAMP</span>
+          <span class="inst-badge">IMECC</span>
+          <span class="inst-badge">Estatística</span>
+        </div>
+        <p class="footer-courses">Disciplinas <span class="mono-inline">ME712</span> · <span class="mono-inline">ME812</span></p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container footer-bottom-inner">
+        <p>&copy; 2026 EstatCon – Departamento de Estatística, IMECC, UNICAMP.</p>
+        <p>Todos os direitos reservados.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>

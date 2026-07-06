@@ -1,0 +1,1551 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Projetos – EstatCon UNICAMP</title>
+  <meta name="description" content="Histórico completo de projetos de consultoria estatística realizados pelo EstatCon desde 2018." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+  <style>
+    /* ---- Page-level overrides ---- */
+    .projects-page { padding-top: 48px; padding-bottom: 96px; }
+
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .9rem;
+      font-weight: 500;
+      color: var(--blue-600);
+      margin-bottom: 32px;
+      transition: gap .15s;
+    }
+    .back-link:hover { gap: 4px; }
+    .back-link svg { width: 16px; height: 16px; }
+
+    .projects-page-header { margin-bottom: 48px; }
+    .projects-page-header h1 {
+      font-family: var(--font-serif);
+      font-size: clamp(2rem, 4vw, 2.75rem);
+      font-weight: 700;
+      color: var(--slate-900);
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+    .projects-page-header p {
+      font-size: 1.0625rem;
+      color: var(--slate-500);
+      max-width: 620px;
+      line-height: 1.7;
+    }
+
+    /* ---- Stats bar ---- */
+    .stats-bar {
+      display: flex;
+      gap: 32px;
+      flex-wrap: wrap;
+      margin-bottom: 48px;
+      padding: 24px 32px;
+      background: var(--blue-50);
+      border: 1px solid var(--blue-100);
+      border-radius: var(--radius-md);
+    }
+    .stat { display: flex; flex-direction: column; gap: 4px; }
+    .stats-bar .stat-number { font-size: 1.5rem; font-weight: 800; font-family: var(--font-mono); letter-spacing: -.03em; color: var(--blue-700); }
+    .stat-label { font-size: .8125rem; color: var(--slate-500); font-weight: 500; }
+    .stat-divider { width: 1px; background: var(--blue-100); align-self: stretch; }
+
+    /* ---- Filter bar ---- */
+    .filter-bar {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 40px;
+      align-items: center;
+    }
+    .filter-bar span {
+      font-size: .8125rem;
+      font-weight: 600;
+      color: var(--slate-500);
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      margin-right: 4px;
+    }
+    .filter-btn {
+      font-size: .8125rem;
+      font-weight: 500;
+      color: var(--slate-700);
+      background: var(--white);
+      border: 1.5px solid var(--slate-200);
+      padding: 6px 14px;
+      border-radius: 99px;
+      cursor: pointer;
+      transition: all .15s;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--blue-600);
+      border-color: var(--blue-600);
+      color: var(--white);
+    }
+
+    /* ---- Semester block ---- */
+    .semester-block { margin-bottom: 56px; scroll-margin-top: var(--nav-h); }
+    .semester-heading {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+    .semester-label {
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--blue-700);
+      white-space: nowrap;
+    }
+    .semester-line { flex: 1; height: 1px; background: var(--slate-200); }
+    .semester-count {
+      font-size: .8125rem;
+      font-weight: 500;
+      color: var(--slate-500);
+      white-space: nowrap;
+    }
+    .semester-note {
+      font-size: .875rem;
+      color: var(--slate-400);
+      padding: 16px 20px;
+      background: var(--slate-50);
+      border: 1px dashed var(--slate-200);
+      border-radius: var(--radius-sm);
+      text-align: center;
+    }
+
+    /* ---- Table ---- */
+    .proj-table-wrap {
+      border: 1px solid var(--slate-100);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-sm);
+      overflow-x: auto;
+    }
+    .proj-table { width: 100%; border-collapse: collapse; min-width: 600px; }
+    .proj-table th {
+      text-align: left;
+      font-size: .7rem;
+      font-weight: 600;
+      letter-spacing: .07em;
+      text-transform: uppercase;
+      color: var(--slate-500);
+      padding: 10px 16px;
+      background: var(--slate-50);
+      border-bottom: 1px solid var(--slate-100);
+      white-space: nowrap;
+    }
+    .proj-table td {
+      padding: 14px 16px;
+      font-size: .875rem;
+      color: var(--slate-700);
+      border-bottom: 1px solid var(--slate-100);
+      vertical-align: top;
+      line-height: 1.55;
+    }
+    .proj-table tr:last-child td { border-bottom: none; }
+    .proj-table tr:hover td { background: var(--slate-50); }
+    .proj-table td.col-title {
+      font-weight: 500;
+      color: var(--slate-900);
+      max-width: 340px;
+    }
+    .proj-table td.col-students { color: var(--slate-500); font-size: .8125rem; }
+    .proj-table td.col-advisor  { color: var(--slate-600); font-size: .8125rem; white-space: nowrap; }
+    .proj-table td.col-client   { color: var(--slate-500); font-size: .8125rem; }
+  </style>
+</head>
+<body>
+
+  <header class="nav-wrap" id="top">
+    <nav class="nav container">
+      <a href="index.html" class="nav-logo" aria-label="EstatCon – início">
+        <span class="logo-mark" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 28 28" fill="none">
+            <rect width="28" height="28" rx="6" fill="url(#lg2)"/>
+            <defs><linearGradient id="lg2" x1="0" y1="0" x2="28" y2="28"><stop stop-color="#3B82F6"/><stop offset="1" stop-color="#06B6D4"/></linearGradient></defs>
+            <path d="M6 20l5-7 4 4 4-6 3 4" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </span>
+        <span class="logo-text"><span class="logo-e">Estat</span><span class="logo-c">Con</span></span>
+      </a>
+      <button class="nav-toggle" aria-label="Abrir menu" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+      <ul class="nav-links" role="list">
+        <li><a href="index.html#sobre">Sobre</a></li>
+        <li><a href="index.html#servicos">Serviços</a></li>
+        <li><a href="index.html#como-funciona">Como Funciona</a></li>
+        <li><a href="index.html#areas">Áreas</a></li>
+        <li><a href="index.html#equipe">Equipe</a></li>
+        <li><a href="projetos.html" aria-current="page">Projetos</a></li>
+        <li><a href="index.html#contato" class="nav-cta">Solicitar Consultoria</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="projects-page">
+    <div class="container">
+
+      <a href="index.html" class="back-link">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M10 4L6 8l4 4"/></svg>
+        Voltar ao início
+      </a>
+
+      <div class="projects-page-header">
+        <span class="section-tag">Histórico completo</span>
+        <h1>Projetos de Consultoria</h1>
+        <p>Todos os projetos realizados pelo EstatCon desde a criação do serviço em 2018, organizados por semestre letivo. Para cada projeto são listados o título, os consultores (alunos), o professor supervisor e o solicitante.</p>
+      </div>
+
+      <div class="stats-bar">
+        <div class="stat">
+          <span class="stat-number">200+</span>
+          <span class="stat-label">Projetos concluídos</span>
+        </div>
+        <div class="stat-divider" aria-hidden="true"></div>
+        <div class="stat">
+          <span class="stat-number">14</span>
+          <span class="stat-label">Semestres ativos</span>
+        </div>
+        <div class="stat-divider" aria-hidden="true"></div>
+        <div class="stat">
+          <span class="stat-number">2018</span>
+          <span class="stat-label">Em atividade desde</span>
+        </div>
+        <div class="stat-divider" aria-hidden="true"></div>
+        <div class="stat">
+          <span class="stat-number">20+</span>
+          <span class="stat-label">Unidades da UNICAMP atendidas</span>
+        </div>
+      </div>
+
+      <!-- ========== 2S 2025 ========== -->
+      <div class="semester-block" id="2s2025">
+        <div class="semester-heading">
+          <span class="semester-label">2º Semestre 2025</span>
+          <div class="semester-line"></div>
+          <span class="semester-count">Em andamento</span>
+        </div>
+        <p class="semester-note">Projetos em andamento – informações serão publicadas ao final do semestre.</p>
+      </div>
+
+      <!-- ========== 1S 2025 ========== -->
+      <div class="semester-block" id="1s2025">
+        <div class="semester-heading">
+          <span class="semester-label">1º Semestre 2025</span>
+          <div class="semester-line"></div>
+          <span class="semester-count">Em andamento</span>
+        </div>
+        <p class="semester-note">Projetos em andamento – informações serão publicadas ao final do semestre.</p>
+      </div>
+
+      <!-- ========== 2S 2024 ========== -->
+      <div class="semester-block" id="2s2024">
+        <div class="semester-heading">
+          <span class="semester-label">2º Semestre 2024</span>
+          <div class="semester-line"></div>
+          <span class="semester-count">13 projetos</span>
+        </div>
+        <div class="proj-table-wrap">
+          <table class="proj-table">
+            <thead>
+              <tr>
+                <th>Título</th>
+                <th>Consultores (Alunos)</th>
+                <th>Supervisor</th>
+                <th>Solicitante / Unidade</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-title">Financeirização, Governança Corporativa e Remuneração Executiva</td>
+                <td class="col-students">Artur Filippi, João Mantovani, Letícia Yamane, Tiago Lima</td>
+                <td class="col-advisor">Alex R. S. Sousa</td>
+                <td class="col-client">Gabriel Quatrochi, Célio Hiratuka – IE/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Territórios Brasileiros para Bovinocultura de Corte</td>
+                <td class="col-students">Allyson Santos, Cássia Scorsolino, Cristiane Li, Theodor Kempter</td>
+                <td class="col-advisor">Alex R. S. Sousa</td>
+                <td class="col-client">Glaycon Antunes, Ricardo Castillo – IG/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Análise Hermenêutica da Infodemiologia Durante Covid-19</td>
+                <td class="col-students">Daniel Toso, Lorena Marini, Rafael Pereira, Thiago Arenas</td>
+                <td class="col-advisor">Alex R. S. Sousa</td>
+                <td class="col-client">Tiago Negrão, Osvando Morais – UNESP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Percepções sobre Desinformação e Literacia Midiática</td>
+                <td class="col-students">Lauro Gomes, Mariana Bastos, Pedro Rebollo, Vinícius Silva</td>
+                <td class="col-advisor">Alex R. S. Sousa</td>
+                <td class="col-client">Tiago Negrão, Osvando Morais – UNESP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Corpo Sonoro Expandido</td>
+                <td class="col-students">Maia Ugarte, Nádia Kalil, Paulo Asakura, Victor Rosa</td>
+                <td class="col-advisor">Mariana R. Motta</td>
+                <td class="col-client">Daniela Gatti – IA/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Hemólise e Metabolismo do Ferro na Anemia Covid-19</td>
+                <td class="col-students">Aline Motoyama, Andrei Piscitelli, Henrique Silva, João Formigari, Rita Silva</td>
+                <td class="col-advisor">Mariana R. Motta</td>
+                <td class="col-client">Gisele Pedroso, Magnum Nueldo – FCM/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Legitimidade das Universidades Públicas</td>
+                <td class="col-students">Gabriella Moura, Isabella Silva, Samuel Rodrigues, Tiago Cardoso</td>
+                <td class="col-advisor">Mariana R. Motta</td>
+                <td class="col-client">João Bertacchi, Gildo Girotto – IQ/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Autoeficácia e Paixão em Esportes de Aventura por Gênero</td>
+                <td class="col-students">Caio Oliveira, Gustavo Garcia, Thiago Miyaji, Tiago Monteiro</td>
+                <td class="col-advisor">Mariana R. Motta</td>
+                <td class="col-client">Maria Mariuzzo, Paula Fernandes – FEF/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Enxertia e Densidade de Hastes em Minitomates</td>
+                <td class="col-students">Bianca Bonifácio, Felipe Marques, Joaquim Pacheco, Lucas Antonucci</td>
+                <td class="col-advisor">Samara Kiihl</td>
+                <td class="col-client">Adriano Araujo, Thais Cesar – FEAGRI/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Ensino de Línguas e Tecnologias Digitais na Pandemia</td>
+                <td class="col-students">Antonio Barreiros, Arthur Galvão, Ian Aguiar, Rubens Roncato</td>
+                <td class="col-advisor">Samara Kiihl</td>
+                <td class="col-client">Márcia Mendonça – IEL/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Aceitação de Tecnologias por Idosos Brasileiros</td>
+                <td class="col-students">Gabriel Santos, Isabela Morais, Mateus Yu, Paula Calabrez, Rodrigo Gomes</td>
+                <td class="col-advisor">Samara Kiihl</td>
+                <td class="col-client">Juliana Carvalho, Meire Cachioni – FCM/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">DTI e Parâmetros Volumétricos em Esclerose Múltipla</td>
+                <td class="col-students">Ana Carneiro, Ana Silva, André Aquino, Lucas Kist, Samuel Miller</td>
+                <td class="col-advisor">Samara Kiihl</td>
+                <td class="col-client">Gabriel Vieira, Alfredo Damasceno – FCM/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Suporte Transfusional na Quimioterapia de Indução</td>
+                <td class="col-students">Leticia Martello, Marcos Grosso, Pedro Pereira</td>
+                <td class="col-advisor">Hildete P. Pinheiro</td>
+                <td class="col-client">Cristiane Omae, Katia Pagnano – FCM/UNICAMP</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ========== 1S 2024 ========== -->
+      <div class="semester-block" id="1s2024">
+        <div class="semester-heading">
+          <span class="semester-label">1º Semestre 2024</span>
+          <div class="semester-line"></div>
+          <span class="semester-count">9 projetos</span>
+        </div>
+        <div class="proj-table-wrap">
+          <table class="proj-table">
+            <thead>
+              <tr><th>Título</th><th>Consultores (Alunos)</th><th>Supervisor</th><th>Solicitante / Unidade</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-title">Toxicologia e Análises Toxicológicas para Políticas Públicas</td>
+                <td class="col-students">Beatriz Silva, Cássia Scorsolino, Josué Conceição, Lucas Kist, Rafael Bortolucci, Rafaela Caléfe, Thiago Miyaji, Victor Rosa</td>
+                <td class="col-advisor">Alex R. S. Sousa, Mariana R. Motta</td>
+                <td class="col-client">Aline Martins, José Costa – FCM/FCF/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Dinâmicas da Fronteira Agrícola em Matopiba</td>
+                <td class="col-students">Bruna Ambar, Caio Oliveira, Marcos Zonaro, Mateus Yu</td>
+                <td class="col-advisor">Alex R. S. Sousa</td>
+                <td class="col-client">Clarissa Fernandes, Roberto Carmo – NEPAM/NEPO/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Geology Student Perspectives on Earth Science Outreach</td>
+                <td class="col-students">Leticia Martello, Lorena Marini, Pedro Rebollo, Victor Kemparski</td>
+                <td class="col-advisor">Alex R. S. Sousa</td>
+                <td class="col-client">Roberto Greco – IG/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Base de Dados Nacional de Informações Toxicológicas Criminais</td>
+                <td class="col-students">Pedro Cabrini, Rita Silva, Rubens Roncato, Vinícius Silva, Gustavo Garcia, João Mantovani, Maia Ugarte</td>
+                <td class="col-advisor">Alex R. S. Sousa, Samara Kiihl</td>
+                <td class="col-client">Rony Costa, José Costa – FCF/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Linhagem Celular PC12 e Toxicidade Induzida</td>
+                <td class="col-students">Daniel Toso, Lucas Tomaz, Marcos Grosso, Rafael Montesso</td>
+                <td class="col-advisor">Mariana R. Motta</td>
+                <td class="col-client">Camila Simões, Mary Foglio – FCF/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Teste do Degrau para Prescrição de Exercício Aeróbico</td>
+                <td class="col-students">Gabriella Moura, Henrique Silva, João Formigari, Samara Silva</td>
+                <td class="col-advisor">Mariana R. Motta</td>
+                <td class="col-client">Milena Salmistraro, Ligia Corrêa – FEF/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Diagnóstico de Intoxicações em Serviços de Emergência</td>
+                <td class="col-students">Gabriel Sardelich, Letícia Yamane, Nádia Kalil, Rafael Pereira, Ana Carneiro, Ana Silva, Charles Santos, Rafael Montesso, Tiago Monteiro</td>
+                <td class="col-advisor">Mariana R. Motta, Samara Kiihl</td>
+                <td class="col-client">Náthaly Faria, José Costa – FCF/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Efeito do Treino de Potência na Osteoartrite</td>
+                <td class="col-students">Artur Filippi, Eliane Souza, Isabella Silva, Lucas Antonucci</td>
+                <td class="col-advisor">Samara Kiihl</td>
+                <td class="col-client">Carla Krieger, Marco Uchida – FEF/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">PC12 com Ensaios MTT e Ácido Ascórbico</td>
+                <td class="col-students">Bianca Schorles, Cristiane Li, Tiago Lima</td>
+                <td class="col-advisor">Samara Kiihl</td>
+                <td class="col-client">Camila Simões, Mary Foglio – FCF/UNICAMP</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ========== 2S 2023 ========== -->
+      <div class="semester-block" id="2s2023">
+        <div class="semester-heading">
+          <span class="semester-label">2º Semestre 2023</span>
+          <div class="semester-line"></div>
+          <span class="semester-count">13 projetos</span>
+        </div>
+        <div class="proj-table-wrap">
+          <table class="proj-table">
+            <thead>
+              <tr><th>Título</th><th>Consultores (Alunos)</th><th>Supervisor</th><th>Solicitante / Unidade</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-title">Diáspora Brasileira de Ciência, Tecnologia e Inovação</td>
+                <td class="col-students">Lucas Gomes, Rafaela Caléfe, Samuel Rodrigues, Vitoria Kauling</td>
+                <td class="col-advisor">Alex R. S. Sousa</td>
+                <td class="col-client">Ana Maria Silva – NEPP/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Alimentação na Primeiríssima Infância</td>
+                <td class="col-students">Charles Santos, Gustavo Marchioni, Kalissa Henrique, Marcelo Jesus</td>
+                <td class="col-advisor">Alex R. S. Sousa</td>
+                <td class="col-client">Natália Silva, Julicristie Oliveira – FCA/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Variáveis Climatológicas na Bacia do Rio Piracicaba</td>
+                <td class="col-students">Antonio Silvestre, Diego Polo, Heloísa Garcia, Marcos Zonaro</td>
+                <td class="col-advisor">Alex R. S. Sousa</td>
+                <td class="col-client">Ronalton Machado – FT/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Variáveis Climatológicas na Bacia Hidrográfica</td>
+                <td class="col-students">Bianca Schorles, Bruno Farias, Leonardo Colussi, Maria Nogueira, Rafael Suetsugu</td>
+                <td class="col-advisor">Alex R. S. Sousa</td>
+                <td class="col-client">Sara Lopes, Julicristie Oliveira – FCA/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Desempenho em Cursos de Estatística (01, 02, 28 e 51)</td>
+                <td class="col-students">Aline Motoyama, Giovanni Interlando, Lucas Tomaz, Vitor Lábio</td>
+                <td class="col-advisor">Hildete P. Pinheiro</td>
+                <td class="col-client">Diego Ledesma – IMECC/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Influências sobre Consumo Alimentar Infantil</td>
+                <td class="col-students">Antonio Oliveira, Milly Oishi, Rodrigo Gomes, Victor Laendle</td>
+                <td class="col-advisor">Mariana R. Motta</td>
+                <td class="col-client">Aline Lima, Julicristie Oliveira – FOP/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Fatores que Comprometem a Vocalidade de Dubladores</td>
+                <td class="col-students">Brenda Santos, Felipe Marques, Henrique Olyntho, Hugo Carvalho</td>
+                <td class="col-advisor">Mariana R. Motta</td>
+                <td class="col-client">Heloísa Povreslo, Ana Constantini – UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Mobilidade Residencial nas RMs de Campinas e Baixada Santista</td>
+                <td class="col-students">Gabriel Batista, Gabriel Bertizoli, Geovani Sousa, Moon Kwon, Nathaly Izawa</td>
+                <td class="col-advisor">Mariana R. Motta</td>
+                <td class="col-client">José Cunha – IFCH/NEPO/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Modelagem de Custos de TIC da UNICAMP</td>
+                <td class="col-students">Guilherme Medina, Ian Aguiar, Lauren Theodoro, Pedro Elias, Victor Kemparski</td>
+                <td class="col-advisor">Samara Kiihl</td>
+                <td class="col-client">Adauto Delgado – UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Treinamento Resistido e Cognição em Idosos</td>
+                <td class="col-students">Carolina Hara, Gabriel Talasso, Matheus Carvalho, Pedro Cabrini, Rodrigo Dantas</td>
+                <td class="col-advisor">Samara Kiihl</td>
+                <td class="col-client">Isadora Ribeiro, Marcio Balthazar – FCM/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Curricularização da Extensão</td>
+                <td class="col-students">Ana Garcia, Bianca Bonifácio, Igor Silva, Tainá Godoi</td>
+                <td class="col-advisor">Samara Kiihl</td>
+                <td class="col-client">Roberto Greco – IG/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Fósforo de Fontes Orgânicas em Eucalyptus</td>
+                <td class="col-students">Daniela Konno, Jadson Silva, Maria Silva, Mateus Trentini, Matheus Lima</td>
+                <td class="col-advisor">Samara Kiihl</td>
+                <td class="col-client">Sara López – IB/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Cadernos Autocorretivos e Aprendizagem em Frações</td>
+                <td class="col-students">Vítor Rodrigues</td>
+                <td class="col-advisor">Mariana R. Motta</td>
+                <td class="col-client">Laura Ferreira, Marcelo Firer – IMECC/UNICAMP</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ========== 1S 2023 ========== -->
+      <div class="semester-block" id="1s2023">
+        <div class="semester-heading">
+          <span class="semester-label">1º Semestre 2023</span>
+          <div class="semester-line"></div>
+          <span class="semester-count">14 projetos</span>
+        </div>
+        <div class="proj-table-wrap">
+          <table class="proj-table">
+            <thead>
+              <tr><th>Título</th><th>Consultores (Alunos)</th><th>Supervisor</th><th>Solicitante / Unidade</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-title">Avaliação de Níveis de Referência de Dosagem de Radiação</td>
+                <td class="col-students">Ana Pereira, Daniela Konno, Hugo Carvalho, Victor Gomes</td>
+                <td class="col-advisor">Alex R. S. Sousa</td>
+                <td class="col-client">Alessandra Tomal – IFGW/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Perfil do Praticante de Esporte de Aventura</td>
+                <td class="col-students">Gabriel Talasso, Henrique Olyntho, Paloma Leme, Tainá Godoi</td>
+                <td class="col-advisor">Alex R. S. Sousa</td>
+                <td class="col-client">Rosane Godoi, Paula Teixeira – FEF/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Avaliação Física e Desempenho em Atletas</td>
+                <td class="col-students">Igor Silva, Jadson Silva, Pedro Semolini, Victor Laendle</td>
+                <td class="col-advisor">Alex R. S. Sousa</td>
+                <td class="col-client">Evandro Lázari – FEF/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Análise da Tendência Hidrológica no Rio Piracicaba</td>
+                <td class="col-students">Eliane Souza, Geovani Sousa, Nathaly Izawa, Vitor Lábio</td>
+                <td class="col-advisor">Carlos Trucios Maza</td>
+                <td class="col-client">Ronalton Machado – FT/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Alvenaria Estrutural: Propriedades Mecânicas a Altas Temperaturas</td>
+                <td class="col-students">Aline Motoyama, Lauren Theodoro, Mateus Trentini, Pietro Milone</td>
+                <td class="col-advisor">Christophe Gallesco</td>
+                <td class="col-client">Cleber Leal, Guilherme Parseekian, Armando Moreno – UFSCar/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Avaliação de Mosquiteiros Impregnados com Inseticidas</td>
+                <td class="col-students">Brenda Santos, Bruno Farias, Maria Nogueira, Rafael Clé</td>
+                <td class="col-advisor">Hildete P. Pinheiro</td>
+                <td class="col-client">Mara Pinto – UNESP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Planejamento e Dimensionamento de Pessoal de TIC</td>
+                <td class="col-students">Antonio Silvestre, Carolina Hara, Giovanna Sella, Maria Silva</td>
+                <td class="col-advisor">Mariana R. Motta</td>
+                <td class="col-client">Adauto Delgado – UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Mulheres na Ciência da Computação</td>
+                <td class="col-students">Heloísa Garcia, Matheus Lima, Rodrigo Dantas</td>
+                <td class="col-advisor">Mariana R. Motta</td>
+                <td class="col-client">Ana Fonseca – FE/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Estratégias para Produção de Mudas de Abacateiro</td>
+                <td class="col-students">Gabriel Sardelich, Giovanni Interlando, Gustavo Marchioni, Kalissa Henrique, Victor Teixeira</td>
+                <td class="col-advisor">Mariana R. Motta</td>
+                <td class="col-client">Edypol Baptista – USP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Análise Comparativa da Prostatectomia Radical</td>
+                <td class="col-students">Ana Garcia, Pedro Crescenti, Pedro Elias, Rafael Suetsugu</td>
+                <td class="col-advisor">Rafael P. Maia</td>
+                <td class="col-client">Tomás Moretti, Leonardo Reis – FCM/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Avaliação Cosmética na Pele por Ultrassom</td>
+                <td class="col-students">Felipe Piton, Gabriel Batista, Leonardo Colussi, Moon Kwon</td>
+                <td class="col-advisor">Samara Kiihl</td>
+                <td class="col-client">Mariane Vergilio, Gislaine Leonardi – FCM/FCF/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Influência de Ativos Cosméticos em Sérum Antienvelhecimento</td>
+                <td class="col-students">Lucas Gomes, Milly Oishi, Samuel Miller, Wendel Ferreira</td>
+                <td class="col-advisor">Samara Kiihl</td>
+                <td class="col-client">Mariane Vergilio, Gislaine Leonardi – FCM/FCF/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Suplementação de Casca de Jabuticaba em Obesos Pré-Diabéticos</td>
+                <td class="col-students">Bruna Ambar, Diego Polo, Marcelo Jesus, Pedro Dinamarco</td>
+                <td class="col-advisor">Samara Kiihl</td>
+                <td class="col-client">Marina Geraldi, Mário Maróstica – FEA/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Dashboard de Ciência de Dados para Avaliação de Educação Médica</td>
+                <td class="col-students">-</td>
+                <td class="col-advisor">Tatiana Benaglia</td>
+                <td class="col-client">Adauto Delgado – NAPES/FCM/UNICAMP</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ========== 2S 2022 ========== -->
+      <div class="semester-block" id="2s2022">
+        <div class="semester-heading">
+          <span class="semester-label">2º Semestre 2022</span>
+          <div class="semester-line"></div>
+          <span class="semester-count">18 projetos</span>
+        </div>
+        <div class="proj-table-wrap">
+          <table class="proj-table">
+            <thead>
+              <tr><th>Título</th><th>Consultores (Alunos)</th><th>Supervisor</th><th>Solicitante / Unidade</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-title">Mulheres na Ciência da Computação</td>
+                <td class="col-students">Bryan Almeida, Isabel Albuquerque, Matheus Marques, Miguel Araújo</td>
+                <td class="col-advisor">Alex R. S. Sousa</td>
+                <td class="col-client">Ana Alves – FE/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Validação de Dados Secundários de Rótulos de Alimentos</td>
+                <td class="col-students">Ana Pereira, Jonathan Fusco, Thomás Denadai</td>
+                <td class="col-advisor">Larissa A. Matos</td>
+                <td class="col-client">Beatriz Nunes, Ana Duran – FCM/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Presença de Mulheres em Cargos de Liderança na Alimentação Escolar</td>
+                <td class="col-students">Carlos Bueno, Gabriel Bertizoli, Nathalia Chenfer, Ricardo Shiraishi</td>
+                <td class="col-advisor">Larissa A. Matos</td>
+                <td class="col-client">Ana Alves, Ana Duran – FCM/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Função Motora Esofágica em Pacientes com Fibrose Cística</td>
+                <td class="col-students">Hugo Pereira, Matheus Braga, Rafael Montesso</td>
+                <td class="col-advisor">Larissa A. Matos</td>
+                <td class="col-client">Elizete Lomazi – HC/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Estudo da Carga Didática dos Docentes do IMECC</td>
+                <td class="col-students">Ana Kuniyoshi, Andrei Piscitelli, Guilherme Lisboa</td>
+                <td class="col-advisor">Larissa A. Matos</td>
+                <td class="col-client">Ricardo Miranda – IMECC/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Análise da Ocupação de Egressos de Cursos de Licenciatura</td>
+                <td class="col-students">Juliana Barbosa, Pedro Semolini, Tiago Cruz, Vinicius Silva</td>
+                <td class="col-advisor">Mariana R. Motta</td>
+                <td class="col-client">Ana Alves – NEPP/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Avaliação das Propriedades Mecânicas do Concreto (SONREB)</td>
+                <td class="col-students">Gustavo Thomazini, Kaio Hashimoto, Vinícius Justus</td>
+                <td class="col-advisor">Nancy Garcia</td>
+                <td class="col-client">Adriana Petrelli, Gisleiva Ferreira – FEAGRI/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Níveis de Referência para Diagnósticos em Tomografia Pediátrica</td>
+                <td class="col-students">Carlos Felix, Lucas Cardoso, Pietro Silva</td>
+                <td class="col-advisor">Rafael P. Maia</td>
+                <td class="col-client">Mônica Bernardo – PUC SP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Coeficiente de Difusão Aparente em Ressonância Magnética</td>
+                <td class="col-students">Antonio Nunes, Henrique Guerra, Pedro Dinamarco</td>
+                <td class="col-advisor">Rafael P. Maia</td>
+                <td class="col-client">Fernanda Pereira, Fabiano Reis – FCM/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Mudança Climática e Percepção de Risco em Horticultores</td>
+                <td class="col-students">André Rodrigues, Beatriz Amaral, Samara Silva</td>
+                <td class="col-advisor">Rafael P. Maia</td>
+                <td class="col-client">Nilson Arraes – FEAGRI/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Qualidade da Democracia em Análise Comparada</td>
+                <td class="col-students">Ivan Tito, Laura Ferro, Lucas Granso, Victor Kemparski</td>
+                <td class="col-advisor">Rafael P. Maia</td>
+                <td class="col-client">Valéria Cabreira – CESOP/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Ciência de Dados em Avaliação Médica: Modelos Longitudinais</td>
+                <td class="col-students">Alyssa Kim, Giovanna Flores, Rafael Pereira</td>
+                <td class="col-advisor">Samara Kiihl</td>
+                <td class="col-client">Adauto Delgado – NAPES/FCM/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Ciência de Dados em Avaliação Médica: Dashboards e Árvores de Regressão</td>
+                <td class="col-students">Julia Guardia, Levi Marinho, Nataina Barbosa</td>
+                <td class="col-advisor">Tatiana Benaglia</td>
+                <td class="col-client">Adauto Delgado – NAPES/FCM/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Projeto (título não disponível)</td>
+                <td class="col-students">Camila Rudecke, Rafael Clé, Rafael Santos</td>
+                <td class="col-advisor">Benilton Carvalho</td>
+                <td class="col-client">Simone Stahl Hinz</td>
+              </tr>
+              <tr>
+                <td class="col-title">Projeto (título não disponível)</td>
+                <td class="col-students">Breno Bonetto, Gabriel Santos, Henrique Bragada</td>
+                <td class="col-advisor">Mauricio E. Z. Herencia</td>
+                <td class="col-client">-</td>
+              </tr>
+              <tr>
+                <td class="col-title">Projeto (título não disponível)</td>
+                <td class="col-students">Caio Silva, Giovanna Sella, Renan Silva</td>
+                <td class="col-advisor">Mauricio E. Z. Herencia</td>
+                <td class="col-client">-</td>
+              </tr>
+              <tr>
+                <td class="col-title">Projeto (título não disponível)</td>
+                <td class="col-students">Alex Lima, Fernanda Picerni, Hellen Freitas, Wendel Ferreira</td>
+                <td class="col-advisor">Mauricio E. Z. Herencia</td>
+                <td class="col-client">-</td>
+              </tr>
+              <tr>
+                <td class="col-title">Projeto (título não disponível)</td>
+                <td class="col-students">Felipe Piton, Flávia Siqueira, Luana Martínez, Marcos Manente</td>
+                <td class="col-advisor">Mauricio E. Z. Herencia</td>
+                <td class="col-client">-</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ========== 1S 2022 ========== -->
+      <div class="semester-block" id="1s2022">
+        <div class="semester-heading">
+          <span class="semester-label">1º Semestre 2022</span>
+          <div class="semester-line"></div>
+          <span class="semester-count">14 projetos</span>
+        </div>
+        <div class="proj-table-wrap">
+          <table class="proj-table">
+            <thead>
+              <tr><th>Título</th><th>Consultores (Alunos)</th><th>Supervisor</th><th>Solicitante / Unidade</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-title">Análise da Utilização da Órtese em T de Montgomery</td>
+                <td class="col-students">Beatriz Amaral, Maicon Carvalho, Tiago Cruz, Vinícius Justus</td>
+                <td class="col-advisor">Larissa A. Matos</td>
+                <td class="col-client">Luiz Arraes, Ricardo Mussi – FCM/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Tratamento do Pé Diabético Infectado</td>
+                <td class="col-students">Laura Ferro, Marcos Manente, Paloma Leme, Rodrigo Forti</td>
+                <td class="col-advisor">Larissa A. Matos</td>
+                <td class="col-client">Rebeca Cecatto – UniNove</td>
+              </tr>
+              <tr>
+                <td class="col-title">Parentalidade e Altas Habilidades ou Superdotação</td>
+                <td class="col-students">Caio Silva, Flávia Siqueira, Julia Guardia, Pedro Crescenti</td>
+                <td class="col-advisor">Larissa A. Matos</td>
+                <td class="col-client">Patrícia Kitaka – PAEPE/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Análise da Inclusão e Mobilidade Social dos Egressos</td>
+                <td class="col-students">Caroline Mangile, Hellen Freitas, Rafael Santos, Victor Teixeira</td>
+                <td class="col-advisor">Larissa A. Matos</td>
+                <td class="col-client">Ana Alves – NEPP/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Estratégias para Implementar Nível de Dose de Referência em Tomografias</td>
+                <td class="col-students">Mariana Bastos, Matheus Braga, Otávio Silva, Renan Silva</td>
+                <td class="col-advisor">Rafael P. Maia</td>
+                <td class="col-client">Alessandra Tomal – IFGW/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Estabelecimento de Níveis de Referência em Tomografia Computadorizada</td>
+                <td class="col-students">Breno Bonetto, Kaio Hashimoto, Lívia Fabris, Victor Gomes</td>
+                <td class="col-advisor">Rafael P. Maia</td>
+                <td class="col-client">Alessandra Tomal – IFGW/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Engajamento da Geração Z</td>
+                <td class="col-students">Alyssa Kim, Danilo Silva, Henrique Bragada, Juliana Barbosa</td>
+                <td class="col-advisor">Rafael P. Maia</td>
+                <td class="col-client">Juliana Abbade, Angela Lucas – FCA/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Multidimensionalidade dos Grupos de Consumo Responsável de Alimentos</td>
+                <td class="col-students">Hugo Pereira, Julia Oliveira, Levi Marinho, Matheus Marques</td>
+                <td class="col-advisor">Rafael P. Maia</td>
+                <td class="col-client">Monique Filassi, Andréa Oliveira – FEAGRI/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Participação das Mulheres no Vestibular e Curso de Ciência da Computação</td>
+                <td class="col-students">Alex Lima, Ana Kuniyoshi, Carlos Felix, Nathalia Desiderio</td>
+                <td class="col-advisor">Samara Kiihl</td>
+                <td class="col-client">Ana Alves, Fernanda Atanes – FE/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Projeto (título não disponível)</td>
+                <td class="col-students">Nathalia Chenfer, Pedro Souza, Rafael Pereira, Ricardo Shiraishi</td>
+                <td class="col-advisor">Benilton Carvalho</td>
+                <td class="col-client">Rony Costa</td>
+              </tr>
+              <tr>
+                <td class="col-title">Projeto (título não disponível)</td>
+                <td class="col-students">André Rodrigues, Antonio Nunes, Nataina Barbosa, Nayara Silva</td>
+                <td class="col-advisor">Hildete P. Pinheiro</td>
+                <td class="col-client">-</td>
+              </tr>
+              <tr>
+                <td class="col-title">Projeto (título não disponível)</td>
+                <td class="col-students">Guilherme Freitas, Jonathan Fusco, Miguel Araújo</td>
+                <td class="col-advisor">Mauricio E. Z. Herencia</td>
+                <td class="col-client">-</td>
+              </tr>
+              <tr>
+                <td class="col-title">Projeto (título não disponível)</td>
+                <td class="col-students">Gabriel Brombim, Henrique Guerra, Lucas Granso, Vinicius Silva</td>
+                <td class="col-advisor">Mauricio E. Z. Herencia</td>
+                <td class="col-client">-</td>
+              </tr>
+              <tr>
+                <td class="col-title">Projeto (título não disponível)</td>
+                <td class="col-students">Carlos Bueno, Guilherme Lisboa, Gustavo Thomazini, Lucas Cardoso</td>
+                <td class="col-advisor">Mauricio E. Z. Herencia</td>
+                <td class="col-client">-</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ========== 2S 2021 ========== -->
+      <div class="semester-block" id="2s2021">
+        <div class="semester-heading">
+          <span class="semester-label">2º Semestre 2021</span>
+          <div class="semester-line"></div>
+          <span class="semester-count">13 projetos</span>
+        </div>
+        <div class="proj-table-wrap">
+          <table class="proj-table">
+            <thead>
+              <tr><th>Título</th><th>Consultores (Alunos)</th><th>Supervisor</th><th>Solicitante / Unidade</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-title">Perda de Percurso na Comunicação de Sensores sem Fio</td>
+                <td class="col-students">Augusto D'Arruda, Felipe Petri, Leticia Porfirio, Nathan Souto</td>
+                <td class="col-advisor">Guilherme Ludwig</td>
+                <td class="col-client">Thais Cesar – FEAGRI/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Avaliação Clínico-Epidemiológica de Crianças com Distúrbios da Deglutição</td>
+                <td class="col-students">Danilo Francesco, Giuseppe Carotti, Mateus Lima, Weider Santos</td>
+                <td class="col-advisor">Hildete P. Pinheiro</td>
+                <td class="col-client">Débora Pazinatto, Rebecca Maunsell – FCM/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Diferenças entre Edificações Escolares AQUA-HQE</td>
+                <td class="col-students">Carlos Kamioka, Luana Martínez, Wesley Alves</td>
+                <td class="col-advisor">Larissa A. Matos</td>
+                <td class="col-client">Paula Kagan – PPGATC/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Perfil e Desempenho dos Alunos da Usina da Dança</td>
+                <td class="col-students">João Shimizu, Rafael Nania, Sofia Oliveira, Vinícius Oliveira</td>
+                <td class="col-advisor">Larissa A. Matos</td>
+                <td class="col-client">Daniela Gatti, Mariana Floriano – IA/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Delimitação de Espécies no Complexo Myrcia neoobscura</td>
+                <td class="col-students">Gabriela Yogi, Giovanna Flores, Guilherme Artoni, Wesley Satelis</td>
+                <td class="col-advisor">Larissa A. Matos</td>
+                <td class="col-client">Paulo Barbosa, Maria do Carmo – IB/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Monitoramento de Condição de Ferrovia</td>
+                <td class="col-students">Ana Oliveira, Diogo Batalha, Guilherme Freitas, Renan Lima</td>
+                <td class="col-advisor">Mariana R. Motta</td>
+                <td class="col-client">Alessandra Tomal – IFGW/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Análise Estatística das 100 Melhores ONGs no Brasil</td>
+                <td class="col-students">Gabriel Brombim, Gustavo Olimpio, Marcelo Lourenço, Miguel Souza</td>
+                <td class="col-advisor">Tatiana Benaglia</td>
+                <td class="col-client">Fernando Nogueira, Nicole Mourad – FGV</td>
+              </tr>
+              <tr>
+                <td class="col-title">Estudo de Atividade Enzimática e Celular de Proteínas</td>
+                <td class="col-students">Giovana Trindade, Helton Ávila, Pedro Souza, Rodrigo Rocha</td>
+                <td class="col-advisor">Samara Kiihl</td>
+                <td class="col-client">Katlin Massirer, Lucas Souza – UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Projeto (título não disponível)</td>
+                <td class="col-students">Bruna Silva, Bryan Almeida, Gustavo Leiva, Júlia Fontes</td>
+                <td class="col-advisor">Mariana R. Motta</td>
+                <td class="col-client">Flávio Duarte, Priscilla Efraim – FEA/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Projeto (título não disponível)</td>
+                <td class="col-students">Guilherme Gurgel, Ivan Tito, Vicenzo Reis, Willian Silva</td>
+                <td class="col-advisor">Mariana R. Motta</td>
+                <td class="col-client">Guilherme Santos, Auteliano Santos – UFES/FEM</td>
+              </tr>
+              <tr>
+                <td class="col-title">Projeto (título não disponível)</td>
+                <td class="col-students">Bruna Carvalho, Dieine Martins, Giovanni Chaves, Leonardo Silva</td>
+                <td class="col-advisor">Nancy Garcia</td>
+                <td class="col-client">Andrea Cordero, Sônia Seixas – FEM/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Projeto (título não disponível)</td>
+                <td class="col-students">Caroline Mangile, Gustavo Guaragna, Julia Oliveira, Marcus Fontes</td>
+                <td class="col-advisor">Tatiana Benaglia</td>
+                <td class="col-client">Elizete Lomazi – FCM/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Projeto (título não disponível)</td>
+                <td class="col-students">Caio Lima, Elizabeth Souto, Isabella Alves, Mariângela Rodrigues</td>
+                <td class="col-advisor">Tatiana Benaglia</td>
+                <td class="col-client">Bruno Masiero, Maria Colella-Santos – FEEC/FCM/UNICAMP</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ========== 1S 2021 ========== -->
+      <div class="semester-block" id="1s2021">
+        <div class="semester-heading">
+          <span class="semester-label">1º Semestre 2021</span>
+          <div class="semester-line"></div>
+          <span class="semester-count">16 projetos</span>
+        </div>
+        <div class="proj-table-wrap">
+          <table class="proj-table">
+            <thead>
+              <tr><th>Título</th><th>Consultores (Alunos)</th><th>Supervisor</th><th>Solicitante / Unidade</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-title">Análise de Variantes em Genes para Glaucoma Primário de Ângulo Aberto</td>
+                <td class="col-students">Gustavo Leiva, Marcus Fontes, Marlon Gondo, Nayara Silva</td>
+                <td class="col-advisor">Samara Kiihl</td>
+                <td class="col-client">Thiago Rodrigues, Monica Melo – FCM/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Influência de Métodos de Fermentação em Características de Chocolates</td>
+                <td class="col-students">Anderson Ortelan, Brenda Mathey, Elizabeth Souto, Gustavo Olimpio</td>
+                <td class="col-advisor">Samara Kiihl</td>
+                <td class="col-client">Paulo Silveira, Priscilla Efraim – FEA/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Análise de Imagem de Pele por Ultrassom para Prever Envelhecimento Cutâneo</td>
+                <td class="col-students">Dieine Martins, Luan Freitas, Marcelo Lourenço, Matheus Ribeiro, Miguel Souza</td>
+                <td class="col-advisor">Samara Kiihl, João Florindo</td>
+                <td class="col-client">Mariane Vergilio, Gislaine Leonardi – FCM/FCF/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Avaliação do Declínio Cognitivo nas Formas Crônicas da Doença de Chagas</td>
+                <td class="col-students">Giovanna Yoshida, Nathalia Desiderio, Renan Lima, Rômulo Mangiapelo</td>
+                <td class="col-advisor">Larissa A. Matos</td>
+                <td class="col-client">Caroline Santiago, Luiz Martins – FCM/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Plataforma #MemóriasCovid19</td>
+                <td class="col-students">Augusto D'Arruda, Leticia Porfirio, Lívia Fabris, Nicholas Soria</td>
+                <td class="col-advisor">Larissa A. Matos</td>
+                <td class="col-client">João Ferreira, Ana Maciel – UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Avaliação Longitudinal dos Médicos Residentes de Oftalmologia</td>
+                <td class="col-students">Gustavo Guaragna, Júlia Fontes, Maria Garrido, Matheus Souza</td>
+                <td class="col-advisor">Larissa A. Matos</td>
+                <td class="col-client">Josie Andrade – FCM/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Investigando Desempenho da Intensidade de Sinal em Casa de Vegetação</td>
+                <td class="col-students">Alexandre Seignemartin, Felipe Vieira, Francesco Carotti, Wesley Alves</td>
+                <td class="col-advisor">Mariana R. Motta</td>
+                <td class="col-client">Thais Cesar, Felipe Miranda – FEAGRI/FEEC/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Avaliação Longitudinal de Neurometabólitos em Substância Branca</td>
+                <td class="col-students">Alexandre Dias, Alexia Santos, Isabella Alves, Otávio Silva</td>
+                <td class="col-advisor">Mariana R. Motta</td>
+                <td class="col-client">Renan Frittoli, Simone Appenzeller – UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Efeito do Uso de Varandas no Desempenho Luminoso de Edifícios Comerciais</td>
+                <td class="col-students">Berenice Barbosa, Gabriela Yogi, João Shimizu, Maicon Carvalho</td>
+                <td class="col-advisor">Mariana R. Motta</td>
+                <td class="col-client">Iris Loche, Letícia Neve – FEC/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Determinação do Período Ótimo para Carregamento de Ônibus Elétrico</td>
+                <td class="col-students">Bruna Silva, Gustavo Nucci, Nayra Alves, Rodrigo Rocha, Guilherme Gurgel</td>
+                <td class="col-advisor">Nancy Garcia</td>
+                <td class="col-client">Leticia Zaneti, Madson Almeida – FEEC/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Estudo sobre Padrões Alimentares de Adolescentes com Fibrose Cística</td>
+                <td class="col-students">Camila Rudecke, Eduardo Romero, Guilherme Artoni, Maicom Chen</td>
+                <td class="col-advisor">Tatiana Benaglia</td>
+                <td class="col-client">Elizete Lomazi, Chiara Pascon – FCM/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Saúde Auditiva Infantil: da Triagem à Reabilitação</td>
+                <td class="col-students">Lucas Silva, Mariângela Rodrigues, Matheus Carvalho, Rodrigo Ponzetto, Vicenzo Reis</td>
+                <td class="col-advisor">Benilton Carvalho</td>
+                <td class="col-client">Maria Lima – FCM/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Projeto (título não disponível)</td>
+                <td class="col-students">Ana Guimarães, Bruna Carvalho, Murilo Fiuza, Thomás Denadai, Vinicius Bronzatti</td>
+                <td class="col-advisor">Caio Azevedo</td>
+                <td class="col-client">Wilton Modro – FCA/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Projeto (título não disponível)</td>
+                <td class="col-students">Francis Ishizaka, Júlio Pazelli, Rafael Nania, Weider Santos</td>
+                <td class="col-advisor">Caio Azevedo</td>
+                <td class="col-client">Priscila Coltri, Emanuel Manica – UNICAMP/FZEA</td>
+              </tr>
+              <tr>
+                <td class="col-title">Projeto (título não disponível)</td>
+                <td class="col-students">Diogo Batalha, Helton Ávila, João Accorsi, Vinícius Oliveira</td>
+                <td class="col-advisor">Caio Azevedo</td>
+                <td class="col-client">Maristella, Rodrigo Lopes – UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Projeto (título não disponível)</td>
+                <td class="col-students">Enrico Pellegrino, Felipe Petri, Leticia Duarte, Sofia Oliveira</td>
+                <td class="col-advisor">Rafael P. Maia</td>
+                <td class="col-client">Andrea Oliveira, Alcília Macarringue – FEAGRI/UNICAMP</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ========== 2S 2020 ========== -->
+      <div class="semester-block" id="2s2020">
+        <div class="semester-heading">
+          <span class="semester-label">2º Semestre 2020</span>
+          <div class="semester-line"></div>
+          <span class="semester-count">14 projetos</span>
+        </div>
+        <div class="proj-table-wrap">
+          <table class="proj-table">
+            <thead>
+              <tr><th>Título</th><th>Consultores (Alunos)</th><th>Supervisor</th><th>Solicitante / Unidade</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-title">Avaliação dos Polimorfismos ABCA1 e GAS7 em Relação ao Risco para Glaucoma</td>
+                <td class="col-students">Ana Guimarães, Giovanna Yoshida, Lucas Tavares, Maria Garrido</td>
+                <td class="col-advisor">Samara Kiihl</td>
+                <td class="col-client">Manoel Araki, José Vasconcelos – FCM/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Associação das Variantes SALL1 e SIX1/SIX6 com Glaucoma Primário</td>
+                <td class="col-students">Carlos Kamioka, Krismann Souza, Murilo Fiuza, Rodrigo Forti, Wesley Satelis</td>
+                <td class="col-advisor">Samara Kiihl</td>
+                <td class="col-client">Yuri Silva, Monica Melo – FCM/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Comparação do Desempenho em Testes Neuropsicológicos na Doença de Alzheimer</td>
+                <td class="col-students">Gilberto Kabakura, Matheus Alves, Nathan Souto, Rômulo Mangiapelo, Victor Cunha</td>
+                <td class="col-advisor">Samara Kiihl</td>
+                <td class="col-client">Milene Souza, Marcio Balthazar, Mônica Yassuda – FCM/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Levantamento do Uso de Álcool e Outras Drogas na Quarentena</td>
+                <td class="col-students">Enrico Pellegrino, Felipe Vieira, Leonardo Silva, Marianna Degani, Roger Reis</td>
+                <td class="col-advisor">Larissa A. Matos</td>
+                <td class="col-client">Ana Maluf, José Costa – FCM/CIATox/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Espectroscopia de Prótons em RM para Diagnóstico de Tumores Cerebrais</td>
+                <td class="col-students">Alexandre Dias, Ana Oliveira, Eduardo Romero, Tiago Gimenez</td>
+                <td class="col-advisor">Larissa A. Matos</td>
+                <td class="col-client">Natália Fachinetti, Milena Kriek, Fabiano Reis – FCM/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Efeitos do Limoneno e do Limoneno-1,2-diol em Camundongos</td>
+                <td class="col-students">Anderson Ortelan, Jessica Prado, Leticia Infante, Mateus Lima, Vinicius Bronzatti</td>
+                <td class="col-advisor">Larissa A. Matos</td>
+                <td class="col-client">Thaís Alexandrino, Juliano Bicas – FEA/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Estudo Comparativo Fonético Acústico de Oclusivas em Bilíngues</td>
+                <td class="col-students">Berenice Barbosa, Giovanni Samartini, Leticia Duarte, Luís Oliveira, Nicole Silva</td>
+                <td class="col-advisor">Tatiana Benaglia</td>
+                <td class="col-client">Carla Diaz, Eleonora Albano – IEL/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Análise do Desperdício de Hortifrútis na CEASA Campinas</td>
+                <td class="col-students">Alexandre Seignemartin, Francis Ishizaka, Gustavo Nucci, Nayra Alves</td>
+                <td class="col-advisor">Tatiana Benaglia</td>
+                <td class="col-client">Dag Mendonça, Andréa Oliveira – FEAGRI/NEPA/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Avaliação do Crescimento Muscular em Tilápia-do-Nilo</td>
+                <td class="col-students">Esther Lirani, Giovana Trindade, Giovanni Chaves, Lucas Silva, Matheus Ribeiro</td>
+                <td class="col-advisor">Tatiana Benaglia</td>
+                <td class="col-client">Márcia Dantas, Ian Amaral – UFPB</td>
+              </tr>
+              <tr>
+                <td class="col-title">A Posição do Verbo no Português de Angola e Moçambique</td>
+                <td class="col-students">Giuseppe Tomio, João Accorsi, Júlio Pazelli, Nicholas Soria, Pedro Matias</td>
+                <td class="col-advisor">Mariana R. Motta</td>
+                <td class="col-client">Aquiles Tescari – IEL/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">A Capacidade de Expandir Conhecimento da Tomada de Decisão Ética</td>
+                <td class="col-students">Fernanda Picerni, Luan Freitas, Marlon Gondo, Rodrigo Étore</td>
+                <td class="col-advisor">Mariana R. Motta</td>
+                <td class="col-client">Érica Rolim – ISE Business School</td>
+              </tr>
+              <tr>
+                <td class="col-title">Efeitos da Taurina em Células Endoteliais Expostas à Restrição de Aminoácidos</td>
+                <td class="col-students">Caio Lima, Gabriela Vechini, Marcus Daniel, Ricardo Rodriguez, Willian Silva</td>
+                <td class="col-advisor">Mariana R. Motta</td>
+                <td class="col-client">Karla Mendonça, Ana Davel – IB/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Desempenho de Intensidade de Sinal de Rede de Sensores sem Fio</td>
+                <td class="col-students">Alexia Santos, Beatriz Messias, Gabriel Stein, Isadora Roland, Vinícius Parente</td>
+                <td class="col-advisor">Mariana R. Motta</td>
+                <td class="col-client">Thais Cesar – FEAGRI/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Riscos Climáticos: O Fenômeno da Seca no Semiárido da Bahia</td>
+                <td class="col-students">Ana Utsumi, Brenda Mathey, Henrique Dias, Luccas Fortunato, Maicom Chen</td>
+                <td class="col-advisor">Mariana R. Motta</td>
+                <td class="col-client">Rafael José, Roberto Greco – IG/UNICAMP</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ========== 1S 2020 ========== -->
+      <div class="semester-block" id="1s2020">
+        <div class="semester-heading">
+          <span class="semester-label">1º Semestre 2020</span>
+          <div class="semester-line"></div>
+          <span class="semester-count">12 projetos</span>
+        </div>
+        <div class="proj-table-wrap">
+          <table class="proj-table">
+            <thead>
+              <tr><th>Título</th><th>Consultores (Alunos)</th><th>Supervisor</th><th>Solicitante / Unidade</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-title">Análise do Teor de Ferro em Variedades de Mandioca Enriquecida</td>
+                <td class="col-students">Jessica Prado, Mariana Ferreira, Marianna Degani</td>
+                <td class="col-advisor">Samara Kiihl</td>
+                <td class="col-client">Juliana Teramoto, Mário Maróstica – FEA/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">High-Throughput Image-Based Assay for Toxicity of Nanoparticles</td>
+                <td class="col-students">Gilmar Pires, Jordão Bragantini, Marcus Daniel</td>
+                <td class="col-advisor">Samara Kiihl</td>
+                <td class="col-client">Marcelo Bispo – IB/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Análise Descritiva do Banco de Dados Carbon Disclosure Project (CDP)</td>
+                <td class="col-students">Danielle Carvalho, Gabriela Vechini, Giovanni Samartini</td>
+                <td class="col-advisor">Samara Kiihl</td>
+                <td class="col-client">Muriel Gavira – FCA/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Estudo de Caso de Gosto Musical na Era Digital</td>
+                <td class="col-students">Carolina Andrade, Luccas Fortunato, Suellen Sena</td>
+                <td class="col-advisor">Larissa A. Matos</td>
+                <td class="col-client">João Santos, Michel Nicolau – IFCH/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">O Papel da Resposta Imune Adaptativa na Neuroinvasão por Oropouche Virus</td>
+                <td class="col-students">Aline Pelegrino, Beatriz Heloise, Giuseppe Tinti</td>
+                <td class="col-advisor">Larissa A. Matos</td>
+                <td class="col-client">Daniel Teixeira, José Módena – IB/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Tratamento de Água Residuária de Piscicultura com Eletrocoagulação</td>
+                <td class="col-students">Bruno Santos, Krismann Pedrosa, Nicole Nogueira</td>
+                <td class="col-advisor">Larissa A. Matos</td>
+                <td class="col-client">Kiane Visconcin, Ariovaldo Silva – FEAGRI/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Análise da Sobrevida de Ratos com Câncer de Bexiga Urinária</td>
+                <td class="col-students">Ana Cristina, Júlia Souza, Vinicius Oliveira</td>
+                <td class="col-advisor">Mauricio E. Z. Herencia</td>
+                <td class="col-client">Queila Dias, Wágner Fávaro – IB/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Impacto do Nível de Literacia nas Doenças Crônicas</td>
+                <td class="col-students">Lucas Ramos, Matheus Marrafon, Victor Dalla</td>
+                <td class="col-advisor">Mauricio E. Z. Herencia</td>
+                <td class="col-client">Carla Tenani, Marília Batista – FOP/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Características dos Tratamentos em Câncer de Bexiga Urinária</td>
+                <td class="col-students">Esther Lustosa, Marilia Rocha, Mateus Kunde</td>
+                <td class="col-advisor">Mauricio E. Z. Herencia</td>
+                <td class="col-client">Queila Dias, Wágner Fávaro – IB/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Percepções Envolvidas no Consumo de Café</td>
+                <td class="col-students">Luís Oliveira, Roger Reis, Tiago Gimenez</td>
+                <td class="col-advisor">Rafael P. Maia</td>
+                <td class="col-client">Camila Teles, Jorge Behrens – FEA/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Ação de Berries Brasileiras sobre Parâmetros Metabólicos e Cognição</td>
+                <td class="col-students">Leticia Bettini, Ricardo Souza</td>
+                <td class="col-advisor">Rafael P. Maia</td>
+                <td class="col-client">Nathalia Medina, Patrícia Batista, Mário Maróstica – FEA/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Qualidade de Alface Produzida em Casa de Vegetação</td>
+                <td class="col-students">Gilberto Seiji, Henrique Limão, Ramom Nunes</td>
+                <td class="col-advisor">Rafael P. Maia</td>
+                <td class="col-client">Thais Cesar – FEAGRI/UNICAMP</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ========== 2S 2019 ========== -->
+      <div class="semester-block" id="2s2019">
+        <div class="semester-heading">
+          <span class="semester-label">2º Semestre 2019</span>
+          <div class="semester-line"></div>
+          <span class="semester-count">12 projetos</span>
+        </div>
+        <div class="proj-table-wrap">
+          <table class="proj-table">
+            <thead>
+              <tr><th>Título</th><th>Consultores (Alunos)</th><th>Supervisor</th><th>Solicitante / Unidade</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-title">Análise Taxonômica da Malacofauna Associada aos Rodolitos</td>
+                <td class="col-students">Aline Pelegrino, Gabriel Stein, Julia Souza, Ramom Ferreira</td>
+                <td class="col-advisor">Samara Kiihl</td>
+                <td class="col-client">Aramys Cesar, Flávio Passos – IB/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Efeito Imediato do Exercício de Trato Vocal Semi Ocluído</td>
+                <td class="col-students">Daniel Awoki, Juliane Filleti, Kadmiel Teixeira</td>
+                <td class="col-advisor">Samara Kiihl</td>
+                <td class="col-client">Mariana Bassetto, Ana Constantini – FCM/CEPRE/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">High-Throughput Image-Based Assay for Toxicity of AgNP Nanoparticles</td>
+                <td class="col-students">Gabrielly Carvalho, Larissa Silva, Pedro Ramos</td>
+                <td class="col-advisor">Samara Kiihl</td>
+                <td class="col-client">Marcelo Bispo – IB/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Estudos Fenotípicos de Isolados Clínicos de Leishmania infantum</td>
+                <td class="col-students">Lucas Besse, Maria Bosco, Wellingon Bezerra</td>
+                <td class="col-advisor">Samara Kiihl</td>
+                <td class="col-client">Thalita Araujo, Selma Giorgio – IB/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Mudanças na Qualidade Vocal Pós-Reconstrução Laringotraqueal</td>
+                <td class="col-students">Danielle Carvalho, Jordão Bragantini, Pedro Matias, Matheus Marrafon</td>
+                <td class="col-advisor">Rafael P. Maia</td>
+                <td class="col-client">Ana Constantini – CEPRE/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Neuropsychophysiology on Highline and Close to Floor Slackline Walks (I)</td>
+                <td class="col-students">Ediucio Silva, Iago Campos</td>
+                <td class="col-advisor">Rafael P. Maia</td>
+                <td class="col-client">Marcelo Barros, Gabriela Castellano – IFGW/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Neuropsychophysiology on Highline and Close to Floor Slackline Walks (II)</td>
+                <td class="col-students">Lucas Ferreira, Tatiana Damas, Mariane Romano</td>
+                <td class="col-advisor">Rafael P. Maia</td>
+                <td class="col-client">Marcelo Barros, Gabriela Castellano – IFGW/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Projeto (título não disponível)</td>
+                <td class="col-students">Wellington Tanaka, Sabrina Rojas, Geovanna Pereira</td>
+                <td class="col-advisor">Rafael P. Maia</td>
+                <td class="col-client">Gustavo Freixas – FEF/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Análise de Oclusivas entre Monolíngues Espanhol e Bilíngues</td>
+                <td class="col-students">Carolina Andrade, Mariana Ferreira, Suellen Silva</td>
+                <td class="col-advisor">Mauricio E. Z. Herencia</td>
+                <td class="col-client">Carla Diaz, Eleonora Albano – IEL/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Evolução Temporal dos Níveis de Mercúrio nos Sedimentos Estuarinos</td>
+                <td class="col-students">Adenilson Rodrigues, Beatriz Ferreira, João Mendes</td>
+                <td class="col-advisor">Mauricio E. Z. Herencia</td>
+                <td class="col-client">Sanny Castro, Wanilson Silva – IG/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Caracterização do Perfil do Estudante que Procura Atendimento Psicológico</td>
+                <td class="col-students">Ana Scalet, Pedro Morgado</td>
+                <td class="col-advisor">Mauricio E. Z. Herencia</td>
+                <td class="col-client">Fernanda Fedato, Amilton Santos – SAPPE/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Condições de Produção Vocal de Professores da Rede Municipal de Campinas</td>
+                <td class="col-students">Matheus Alves, Helena Viana, Ignácio Amstalden</td>
+                <td class="col-advisor">Mauricio E. Z. Herencia</td>
+                <td class="col-client">Ana Constantini, Helenice Nakamura, Léslie Piccolotto – CEPRE/UNICAMP</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ========== 2S 2018 ========== -->
+      <div class="semester-block" id="2s2018">
+        <div class="semester-heading">
+          <span class="semester-label">2º Semestre 2018</span>
+          <div class="semester-line"></div>
+          <span class="semester-count">12 projetos</span>
+        </div>
+        <div class="proj-table-wrap">
+          <table class="proj-table">
+            <thead>
+              <tr><th>Título</th><th>Consultores (Alunos)</th><th>Supervisor</th><th>Solicitante / Unidade</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-title">O Papel da Necromassa no Ciclo do Carbono na Mata Atlântica</td>
+                <td class="col-students">Luiza Ramos, Matheus Galvão, Michely Hsieh, Natalia Seraphim</td>
+                <td class="col-advisor">Larissa A. Matos</td>
+                <td class="col-client">Luis Quimbayo, Simone Vieira – IB/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Análise da Taxa de Decomposição de Madeira Morta na Mata Atlântica</td>
+                <td class="col-students">Gabriel Bottignon, Laís Bordin, Lucas Ferreira, Lucas Mascarenhas</td>
+                <td class="col-advisor">Larissa A. Matos</td>
+                <td class="col-client">Luis Quimbayo, Simone Vieira – IB/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Influência da Diversidade de Espécies na Produção de Madeira Morta</td>
+                <td class="col-students">Diogo Aggio, Helena Viana, Luke Zheng, Rafael Branco</td>
+                <td class="col-advisor">Larissa A. Matos</td>
+                <td class="col-client">Luis Quimbayo, Simone Vieira – IB/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Produção de Raízes Finas na Mata Atlântica</td>
+                <td class="col-students">Aldrey Villas Bôas, Mariana Vallim, Mariane Sahú, Paloma Souza</td>
+                <td class="col-advisor">Samara Kiihl</td>
+                <td class="col-client">Cinthia Silva, Simone Vieira – IB/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Microrganismos Esporulados na Cadeia Produtiva da Gelatina</td>
+                <td class="col-students">Jean Pinto, Jennifer Souza, Rafaella Konno, Vanessa Ferraz</td>
+                <td class="col-advisor">Samara Kiihl</td>
+                <td class="col-client">Graziele Stradiotto, Anderson Sant'Ana – FEA/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Mercado de Batata no Brasil</td>
+                <td class="col-students">Isadora Tessler, Murilo Razoli, Robson Borges, Viviane Casacio</td>
+                <td class="col-advisor">Samara Kiihl</td>
+                <td class="col-client">-</td>
+              </tr>
+              <tr>
+                <td class="col-title">Conservação da Comunidade através de Florestas Naturais Sagradas</td>
+                <td class="col-students">Matheus Marrafon, Caroline Monteiro, Thaís Pietro, Juliana Daikawa</td>
+                <td class="col-advisor">Hildete P. Pinheiro</td>
+                <td class="col-client">-</td>
+              </tr>
+              <tr>
+                <td class="col-title">Estudo de Fatores Associados à Evasão e Conclusão no Curso de Estatística</td>
+                <td class="col-students">Ana Felix, João Sola, Tiago Araujo, Tomás Weguelin</td>
+                <td class="col-advisor">Hildete P. Pinheiro</td>
+                <td class="col-client">Samara Kiihl – IMECC/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Avaliação da Implementação da TV Digital</td>
+                <td class="col-students">Erika Barbosa, Matheus Alves, Bruno Pagotto, Douglas Oliveira</td>
+                <td class="col-advisor">Aluísio Pinheiro</td>
+                <td class="col-client">-</td>
+              </tr>
+              <tr>
+                <td class="col-title">Envelhecimento da Massa Cinzenta do Cérebro em Pacientes com Epilepsia</td>
+                <td class="col-students">Ricardo Corder, Taynan Quitério, Wellington Bezerra, Leonardo Santos</td>
+                <td class="col-advisor">Aluísio Pinheiro</td>
+                <td class="col-client">-</td>
+              </tr>
+              <tr>
+                <td class="col-title">Modelos de Regressão Logística para Envelhecimento Cerebral</td>
+                <td class="col-students">Isabelle Idalgo, Marcos Ferreira, Jonas Araujo</td>
+                <td class="col-advisor">Aluísio Pinheiro</td>
+                <td class="col-client">-</td>
+              </tr>
+              <tr>
+                <td class="col-title">Segmentação/Agrupamento de Controles e Familiares de Pacientes com Epilepsia</td>
+                <td class="col-students">Jose Almeida, Ingrid Moutinho, Jair Jovino, Rodrigo Carvalho</td>
+                <td class="col-advisor">Aluísio Pinheiro</td>
+                <td class="col-client">-</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- ========== 1S 2018 ========== -->
+      <div class="semester-block" id="1s2018">
+        <div class="semester-heading">
+          <span class="semester-label">1º Semestre 2018</span>
+          <div class="semester-line"></div>
+          <span class="semester-count">10 projetos</span>
+        </div>
+        <div class="proj-table-wrap">
+          <table class="proj-table">
+            <thead>
+              <tr><th>Título</th><th>Consultores (Alunos)</th><th>Supervisor</th><th>Solicitante / Unidade</th></tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="col-title">Estudo do Plano Diretor Aprovado após Estatuto da Cidade</td>
+                <td class="col-students">Amanda Silva, Aline Nunes, Mariane Sahú</td>
+                <td class="col-advisor">Larissa A. Matos</td>
+                <td class="col-client">Selena Lage – FEC/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Ecologia de Corujas e Efeitos Recíprocos sobre Vegetação</td>
+                <td class="col-students">Amanda Silva, Aline Nunes, Mariane Sahú</td>
+                <td class="col-advisor">Larissa A. Matos</td>
+                <td class="col-client">Laura Riba – IB/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Análise de Variância dos Microrganismos em Carne Dry-Aged</td>
+                <td class="col-students">Diogo Aggio, Jonas Araújo, Lucas Mascarenhas, Tomás Weguelin</td>
+                <td class="col-advisor">Larissa A. Matos</td>
+                <td class="col-client">Astrid Muniz, Maristela Nascimento – FEA/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Análise Estatística de Parasitismo em Traíras</td>
+                <td class="col-students">Aldrey Villas Bôas, Larissa Silva, Lucas Souza, Mariana Gonçalves</td>
+                <td class="col-advisor">Larissa A. Matos</td>
+                <td class="col-client">Carla Silva, Marlene Ueta – IB/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Consumo, Estrutura Social e Inclusão: China e Brasil</td>
+                <td class="col-students">Aldrey Villas Bôas, Larissa Silva, Lucas Souza, Mariana Gonçalves</td>
+                <td class="col-advisor">Larissa A. Matos</td>
+                <td class="col-client">Mariana Abreu – IFCH/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Engajamento dos Estudantes da UNICAMP</td>
+                <td class="col-students">Daniela Moraes, Henrique Capatto, Marcos Ferreira, Murilo Razoli</td>
+                <td class="col-advisor">Larissa A. Matos</td>
+                <td class="col-client">Ana Maria – NEPP/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Teoria da Mente: Crença Falsa e Ignorância</td>
+                <td class="col-students">Erika Barbosa, Nara Oliveira, Rafaella Konno, Rodrigo Stahl</td>
+                <td class="col-advisor">Larissa A. Matos</td>
+                <td class="col-client">Thuany – IEL/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Impacto do Processo de Maturação na Maciez da Carne</td>
+                <td class="col-students">Robson Borges, Rodrigo Fonseca, Ricardo Corder, Lucas Besse</td>
+                <td class="col-advisor">Rafael P. Maia</td>
+                <td class="col-client">Sérgio Pflanzer – FEA/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Identificação de Padrão Construtivo para Simulações em Arquitetura</td>
+                <td class="col-students">Carolina Monteiro, Laís Bordin, Michely Hsieh, Thaís Pietro</td>
+                <td class="col-advisor">Rafael P. Maia</td>
+                <td class="col-client">Fernanda Alves – FEC/UNICAMP</td>
+              </tr>
+              <tr>
+                <td class="col-title">Projeto (informações incompletas)</td>
+                <td class="col-students">-</td>
+                <td class="col-advisor">Rafael P. Maia</td>
+                <td class="col-client">-</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- CTA -->
+      <div style="text-align:center; margin-top: 16px;">
+        <p style="color:var(--slate-500);font-size:.9375rem;margin-bottom:20px">Quer fazer parte dessa lista? Inscreva seu projeto no EstatCon.</p>
+        <a href="index.html#contato" class="btn btn-primary">Solicitar Consultoria</a>
+      </div>
+
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo">
+          <span class="logo-text"><span class="logo-e">Estat</span><span class="logo-c">Con</span></span>
+        </a>
+        <p>Serviço de Consultoria Estatística<br />IMECC · UNICAMP</p>
+      </div>
+      <nav class="footer-nav" aria-label="Navegação rodapé">
+        <ul role="list">
+          <li><a href="index.html#sobre">Sobre</a></li>
+          <li><a href="index.html#servicos">Serviços</a></li>
+          <li><a href="index.html#como-funciona">Como Funciona</a></li>
+          <li><a href="projetos.html">Projetos</a></li>
+          <li><a href="index.html#contato">Contato</a></li>
+        </ul>
+      </nav>
+      <div class="footer-logos">
+        <span class="inst-badge">UNICAMP</span>
+        <span class="inst-badge">IMECC</span>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <div class="container">
+        <p>&copy; 2026 EstatCon – IMECC, UNICAMP</p>
+        <p><a href="mailto:estatcon@unicamp.br">estatcon@unicamp.br</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="main.js"></script>
+</body>
+</html>
