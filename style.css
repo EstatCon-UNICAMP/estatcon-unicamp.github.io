@@ -627,7 +627,8 @@ section[id] { scroll-margin-top: var(--nav-h); }
   position: relative;
   border-radius: var(--r-xl);
   overflow: hidden;
-  align-self: center;
+  align-self: start;
+  margin-top: 48px;
 }
 .hero-img {
   width: 100%;
@@ -920,10 +921,10 @@ section[id] { scroll-margin-top: var(--nav-h); }
 }
 .team-card:hover { transform: translateY(-4px); border-color: rgba(6,182,212,.2); }
 .team-avatar {
-  width: 72px; height: 72px;
+  width: 128px; height: 128px;
   border-radius: 50%;
   margin-inline: auto;
-  margin-bottom: 18px;
+  margin-bottom: 20px;
   overflow: hidden;
   position: relative;
 }
