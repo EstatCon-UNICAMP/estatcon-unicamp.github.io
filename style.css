@@ -1496,6 +1496,27 @@ section[id] { scroll-margin-top: var(--nav-h); }
 /* =============================================
    INSCRIPTION BANNER
    ============================================= */
+span.extended-tag {
+  display: block;
+  width: fit-content;
+  margin: 6px 0 0;
+  padding: 2px 9px;
+  font-size: .6875rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .03em;
+  border-radius: 999px;
+  background: #FBBF24;
+  color: #000;
+  white-space: nowrap;
+  animation: pulse-tag 1.8s ease-in-out infinite;
+}
+
+@keyframes pulse-tag {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: .7; transform: scale(1.06); }
+}
+
 .inscricao-banner {
   position: sticky;
   top: var(--nav-h);
@@ -1525,6 +1546,7 @@ section[id] { scroll-margin-top: var(--nav-h); }
 }
 .inscricao-text strong { font-size: .9375rem; font-weight: 700; color: var(--white); }
 .inscricao-text span   { font-size: .8125rem; color: rgba(255,255,255,.8); }
+.inscricao-text .extended-tag { color: #000; }
 .inscricao-cta {
   background: rgba(255,255,255,.15) !important;
   color: var(--white) !important;
