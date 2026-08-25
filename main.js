@@ -1,5 +1,5 @@
 // ── Inscrições ─────────────────────────────────────────────────────────────
-// Defina true durante o período de inscrições para exibir o banner
+// Defina true para exibir o banner (aberto ou encerrado, conforme texto em index.html)
 const INSCRICOES_ABERTAS = true;
 
 const banner = document.getElementById('inscricao-banner');
